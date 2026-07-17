@@ -1,0 +1,12 @@
+<div class="alert-card">
+  <h3>{{ title() }}</h3>
+  <div class="alert-list">
+    @for (alert of alerts(); track alert.id) {
+      <div class="alert-item" [class]="'alert-' + alert.type">
+        <span class="alert-icon">{{ getTypeIcon(alert.type) }}</span>
+        <span class="alert-title">{{ alert.title }}</span>
+        <span class="alert-time">{{ alert.time }}</span>
+      </div>
+    }
+  </div>
+</div>

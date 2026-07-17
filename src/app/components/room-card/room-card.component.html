@@ -1,0 +1,16 @@
+<div class="room-card" [class]="'status-' + room().status">
+  <div class="room-top">
+    <span class="room-code">{{ room().code }}</span>
+    <span class="room-icon">{{ statusIcon }}</span>
+  </div>
+  <div class="room-type">{{ room().type }}</div>
+  <div class="room-occupancy">
+    <span>{{ room().current }}</span>
+    <span class="separator">/</span>
+    <span>{{ room().max }}</span>
+    <span class="label">người</span>
+  </div>
+  <div class="room-status" [class]="'status-' + room().status">
+    {{ statusLabel }}
+  </div>
+</div>

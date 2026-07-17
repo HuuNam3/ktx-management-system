@@ -1,0 +1,12 @@
+<div class="stat-card" [style.--stat-color]="color()" [style.--stat-bg]="bgColor()">
+  <div class="stat-body">
+    <span class="stat-label">{{ label() }}</span>
+    <span class="stat-value">{{ value() }}</span>
+    @if (subtitle()) {
+      <span class="stat-subtitle">{{ subtitle() }}</span>
+    }
+  </div>
+  <div class="stat-icon-box">
+    <span class="stat-icon-text">{{ icon() }}</span>
+  </div>
+</div>

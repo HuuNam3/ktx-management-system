@@ -1,0 +1,58 @@
+<div class="topbar" (click)="closeDropdowns()">
+  <div class="topbar-left" (click)="$event.stopPropagation()">
+    <div class="shift-badge">
+      <span class="shift-dot"></span>
+      <span>Ca sáng 7:00-15:00</span>
+    </div>
+  </div>
+
+  <div class="topbar-center">
+    <ion-icon name="calendar-outline"></ion-icon>
+    <span>{{ formattedDate }}</span>
+  </div>
+
+  <div class="topbar-right" (click)="$event.stopPropagation()">
+    <div class="notif-wrapper">
+      <button class="notif-btn" (click)="toggleNotif()">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <span class="notif-dot"></span>
+      </button>
+      @if (showNotifDropdown()) {
+        <div class="dropdown dropdown-notif">
+          <div class="dropdown-header">Thông báo</div>
+          @for (n of notifications; track n.id) {
+            <div class="dropdown-item">
+              <span class="dropdown-text">{{ n.text }}</span>
+              <span class="dropdown-time">{{ n.time }}</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="user-wrapper">
+      <button class="user-btn" (click)="toggleUser()">
+        <ion-icon name="person-circle-outline" class="user-avatar"></ion-icon>
+        <span class="user-name">Admin</span>
+        <ion-icon name="chevron-down-outline" class="chevron"></ion-icon>
+      </button>
+      @if (showUserDropdown()) {
+        <div class="dropdown dropdown-user">
+          <div class="dropdown-item">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Thông tin cá nhân</span>
+          </div>
+          <div class="dropdown-item">
+            <ion-icon name="settings-outline"></ion-icon>
+            <span>Nhiệm vụ của tôi</span>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item text-danger">
+            <ion-icon name="log-out-outline"></ion-icon>
+            <span>Đăng xuất</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

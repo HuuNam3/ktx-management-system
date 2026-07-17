@@ -1,0 +1,78 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-text {
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin: 4px 0 0;
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.btn-icon {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.btn-checkin {
+  background: var(--success);
+  color: white;
+
+  &:hover {
+    background: #15803D;
+  }
+}
+
+.btn-checkout {
+  background: var(--danger);
+  color: white;
+
+  &:hover {
+    background: #B91C1C;
+  }
+}
+
+.btn-qr {
+  background: var(--primary);
+  color: white;
+
+  &:hover {
+    background: #1D4ED8;
+  }
+}

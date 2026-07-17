@@ -1,2 +1,16 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+:root {
+  --primary: #2563EB;
+  --primary-light: #EEF5FF;
+  --primary-border: #BFD8FF;
+  --success: #16A34A;
+  --danger: #DC2626;
+  --warning: #F59E0B;
+  --bg: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --border: #E5E7EB;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --sidebar-width: 320px;
+  --topbar-height: 72px;
+  --radius: 20px;
+}

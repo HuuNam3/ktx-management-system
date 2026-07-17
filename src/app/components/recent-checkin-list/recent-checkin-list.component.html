@@ -1,0 +1,11 @@
+<div class="recent-checkin-card">
+  <div class="card-header">
+    <h3>Check-in gần đây</h3>
+    <button class="view-all">Xem tất cả →</button>
+  </div>
+  <div class="checkin-list">
+    @for (item of items(); track item.cccd) {
+      <app-recent-checkin-item [item]="item" />
+    }
+  </div>
+</div>

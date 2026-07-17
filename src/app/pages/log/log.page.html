@@ -1,0 +1,57 @@
+<div class="log-page">
+  <app-page-header
+    title="Nhật ký ra vào"
+    description="Theo dõi lịch sử ra vào ký túc xá"
+    [showCheckin]="false"
+    [showCheckout]="false"
+    [showQR]="false"
+  />
+
+  @if (stats) {
+    <div class="row stats-row">
+      <app-statistic-card label="Check-in hôm nay" [value]="stats.todayCheckins | number" icon="📥" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Check-out hôm nay" [value]="stats.todayCheckouts | number" icon="📤" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Tổng lượt vào" [value]="stats.totalEntries | number" icon="🚪" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Tổng lượt ra" [value]="stats.totalExits | number" icon="🚶" subtitle="" color="#8B5CF6" bgColor="#F3E8FF" />
+    </div>
+  }
+
+  <div class="row filter-row">
+    <div class="filter-group">
+      <button class="filter-type" [class.active]="filterType === 'all'" (click)="setFilter('all')">Tất cả</button>
+      <button class="filter-type" [class.active]="filterType === 'checkin'" (click)="setFilter('checkin')">Check-in</button>
+      <button class="filter-type" [class.active]="filterType === 'checkout'" (click)="setFilter('checkout')">Check-out</button>
+      <button class="filter-type" [class.active]="filterType === 'qr'" (click)="setFilter('qr')">QR</button>
+    </div>
+    <div class="search-group">
+      <app-search-input placeholder="Tìm kiếm CCCD, tên, phòng..." (valueChange)="onSearch($event)" />
+    </div>
+  </div>
+
+  <div class="row table-card">
+    <div class="table-header">
+      <span>Thời gian</span>
+      <span>Loại</span>
+      <span>Họ tên</span>
+      <span>CCCD</span>
+      <span>Phòng</span>
+      <span>Phương thức</span>
+      <span>Nhân viên</span>
+    </div>
+    <div class="table-body">
+      @for (entry of entries; track entry.id) {
+        <div class="table-row">
+          <span class="cell-time">{{ entry.time }}</span>
+          <span class="cell-type">
+            <span class="badge-type" [class]="getTypeBadge(entry.type)">{{ getTypeLabel(entry.type) }}</span>
+          </span>
+          <span class="cell-name">{{ entry.fullName }}</span>
+          <span class="cell-cccd">{{ entry.cccd }}</span>
+          <span class="cell-room">{{ entry.room }}</span>
+          <span class="cell-method">{{ entry.method }}</span>
+          <span class="cell-staff">{{ entry.staff }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="dashboard-page">
+  <app-page-header
+    title="Tổng quan"
+    description="Bảng điều khiển trung tâm"
+    [showCheckin]="false"
+    [showCheckout]="false"
+    [showQR]="false"
+  />
+
+  @if (stats) {
+    <div class="row stats-row">
+      <app-statistic-card label="Tổng số khách" [value]="stats.totalGuests | number" icon="👥" subtitle="24 check-in hôm nay" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Số phòng trống" [value]="stats.emptyRooms | number" icon="🏠" subtitle="Trên tổng số 120 phòng" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Doanh thu" [value]="formatCurrency(stats.revenue) + 'đ'" icon="💰" subtitle="Tháng 7/2026" color="#F59E0B" bgColor="#FFFBEB" />
+      <app-statistic-card label="Cảnh báo" [value]="stats.alerts | number" icon="🔔" subtitle="Cần xử lý" color="#DC2626" bgColor="#FEF2F2" />
+    </div>
+  }
+
+  <div class="row charts-row">
+    <div class="col-chart-main">
+      <app-chart-card
+        title="Doanh thu 7 ngày"
+        type="line"
+        [data]="revenueData"
+        [labels]="revenueLabels"
+        [showExport]="true"
+      />
+    </div>
+    <div class="col-chart-side">
+      <app-chart-card
+        title="Phân bố loại phòng"
+        type="donut"
+        [data]="distData"
+        [labels]="distLabels"
+        [colors]="distColors"
+      />
+    </div>
+  </div>
+
+  <div class="row bottom-row">
+    <div class="col-timeline">
+      <app-timeline [items]="timelineItems" />
+    </div>
+    <div class="col-alerts">
+      <app-alert-card [alerts]="alertItems" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="chart-card">
+  <div class="chart-header">
+    <h3>{{ title() }}</h3>
+    @if (showExport()) {
+      <button class="btn-export">Xuất báo cáo →</button>
+    }
+  </div>
+  <div class="chart-body">
+    @if (type() === 'line') {
+      <svg class="line-chart" viewBox="0 0 300 120" preserveAspectRatio="xMidYMid meet">
+        <polyline
+          [attr.points]="linePoints()"
+          fill="none"
+          stroke="var(--primary)"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <polygon
+          [attr.points]="areaPoints()"
+          fill="url(#grad)"
+          opacity="0.15"
+        />
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--primary)" />
+            <stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="chart-labels">
+        @for (label of labels(); track label) {
+          <span>{{ label }}</span>
+        }
+      </div>
+    }
+    @if (type() === 'donut') {
+      <div class="donut-container">
+        <svg viewBox="0 0 42 42" class="donut-svg">
+          @for (seg of donutSegments(); track $index) {
+            <circle
+              cx="21" cy="21" r="15.9"
+              fill="none"
+              [attr.stroke]="seg.color"
+              stroke-width="3"
+              [attr.stroke-dasharray]="seg.dash"
+              stroke-dashoffset="0"
+              [attr.transform]="'rotate(' + seg.offset + ' 21 21)'"
+            />
+          }
+        </svg>
+        <div class="donut-center">
+          <span class="donut-total">{{ totalValue() }}</span>
+        </div>
+      </div>
+      <div class="donut-legend">
+        @for (item of legendItems(); track $index) {
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="item.color"></span>
+            <span class="legend-label">{{ item.label }}</span>
+            <span class="legend-value">{{ item.value }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

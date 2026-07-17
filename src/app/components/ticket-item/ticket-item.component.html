@@ -1,0 +1,11 @@
+<div class="ticket-item">
+  <div class="ticket-icon" [style.background]="iconBg">
+    <span>{{ icon }}</span>
+  </div>
+  <div class="ticket-info">
+    <span class="ticket-name">{{ item().name }}</span>
+    <span class="ticket-desc">{{ item().description }}</span>
+    <span class="ticket-time">{{ item().time }}</span>
+  </div>
+  <div class="ticket-amount">{{ formattedAmount }}</div>
+</div>

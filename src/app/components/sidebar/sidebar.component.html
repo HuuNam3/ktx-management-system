@@ -1,0 +1,37 @@
+<div class="sidebar" [class.collapsed]="collapsed()">
+  <div class="sidebar-header">
+    <div class="logo-area">
+      <div class="logo-icon">KTX</div>
+      @if (!collapsed()) {
+        <div class="logo-text">
+          <h2>KTX Tây Đô</h2>
+          <span>Quản lý ký túc xá</span>
+        </div>
+      }
+    </div>
+    <button class="collapse-btn" (click)="toggleCollapse()">
+      <ion-icon [name]="collapsed() ? 'chevron-forward-outline' : 'chevron-back-outline'"></ion-icon>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+    @for (item of menuItems; track item.label) {
+      <a
+        class="menu-item"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: item.route === '/reception' }"
+      >
+        <div class="menu-icon">
+          <ion-icon [name]="item.icon + '-outline'"></ion-icon>
+        </div>
+        @if (!collapsed()) {
+          <span class="menu-label">{{ item.label }}</span>
+        }
+        @if (!collapsed() && item.badge) {
+          <span class="menu-badge">{{ item.badge }}</span>
+        }
+      </a>
+    }
+  </nav>
+</div>

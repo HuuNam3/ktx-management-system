@@ -1,0 +1,11 @@
+<div class="filter-bar">
+  @for (opt of options(); track opt.value) {
+    <button
+      class="filter-chip"
+      [class.active]="selected() === opt.value"
+      (click)="select(opt.value)"
+    >
+      {{ opt.label }}
+    </button>
+  }
+</div>

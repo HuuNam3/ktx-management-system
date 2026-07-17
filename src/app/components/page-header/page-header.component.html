@@ -1,0 +1,29 @@
+<div class="page-header">
+  <div class="header-text">
+    <h1>{{ title() }}</h1>
+    @if (description()) {
+      <p>{{ description() }}</p>
+    }
+  </div>
+  <div class="header-actions">
+    @if (showCheckin()) {
+      <button class="btn btn-checkin" (click)="checkinClick.emit()">
+        <span class="btn-icon">+</span>
+        Check-in
+      </button>
+    }
+    @if (showCheckout()) {
+      <button class="btn btn-checkout" (click)="checkoutClick.emit()">
+        <span class="btn-icon">→</span>
+        Check-out
+      </button>
+    }
+      @if (showQR()) {
+      <button class="btn btn-qr" (click)="qrClick.emit()">
+        <span class="btn-icon">◈</span>
+        Quét QR
+      </button>
+    }
+    <ng-content />
+  </div>
+</div>

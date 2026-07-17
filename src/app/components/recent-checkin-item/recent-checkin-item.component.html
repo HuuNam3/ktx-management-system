@@ -1,0 +1,19 @@
+<div class="checkin-item">
+  <div class="item-avatar">
+    <ion-icon name="person-outline"></ion-icon>
+  </div>
+  <div class="item-info">
+    <span class="item-name">{{ item().name }}</span>
+    <div class="item-details">
+      <span>CCCD: {{ item().cccd }}</span>
+      <span class="dot">·</span>
+      <span>Phòng {{ item().room }}</span>
+      <span class="dot">·</span>
+      <span>Giường {{ item().bed }}</span>
+    </div>
+  </div>
+  <div class="item-meta">
+    <app-status-tag [type]="item().type" />
+    <span class="item-time">{{ item().time }}</span>
+  </div>
+</div>

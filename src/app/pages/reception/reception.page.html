@@ -1,0 +1,42 @@
+<div class="reception-page">
+  <app-page-header
+    title="Quầy Lễ Tân"
+    description="Quản lý check-in/out nhanh chóng"
+    (checkinClick)="onCheckin()"
+    (checkoutClick)="onCheckout()"
+    (qrClick)="onQr()"
+  />
+
+  <div class="row row-1">
+    <div class="col-search">
+      <app-search-card />
+    </div>
+    <div class="col-stats">
+      <app-stat-card
+        label="Check-in hôm nay"
+        [value]="stats.checkinsToday | number"
+        icon="→"
+        color="var(--success)"
+        bgColor="#F0FDF4"
+      />
+      <app-stat-card
+        label="Check-out hôm nay"
+        [value]="stats.checkoutsToday | number"
+        icon="←"
+        color="var(--danger)"
+        bgColor="#FEF2F2"
+      />
+      <app-stat-card
+        label="Đang ở"
+        [value]="stats.currentOccupants | number"
+        icon="●"
+        color="var(--primary)"
+        bgColor="var(--primary-light)"
+      />
+    </div>
+  </div>
+
+  <div class="row row-2">
+    <app-recent-checkin-list [items]="checkins" />
+  </div>
+</div>

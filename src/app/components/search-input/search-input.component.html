@@ -1,0 +1,9 @@
+<div class="search-wrapper">
+  <ion-icon name="search-outline" class="search-icon"></ion-icon>
+  <input
+    type="text"
+    class="search-input"
+    [placeholder]="placeholder()"
+    (input)="valueChange.emit($any($event.target).value)"
+  />
+</div>

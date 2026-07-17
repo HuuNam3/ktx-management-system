@@ -1,0 +1,33 @@
+<div class="room-page">
+  <app-page-header
+    title="Quản lý phòng"
+    description="Quản lý thông tin phòng ở"
+    [showCheckin]="false"
+    [showCheckout]="false"
+    [showQR]="false"
+  />
+
+  @if (stats) {
+    <div class="row stats-row">
+      <app-statistic-card label="Tổng phòng" [value]="stats.total | number" icon="🏢" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Còn trống" [value]="stats.empty | number" icon="✅" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Còn chỗ" [value]="stats.partial | number" icon="🟡" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Đầy" [value]="stats.full | number" icon="🔴" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Bảo trì" [value]="stats.maintenance | number" icon="⚙" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
+    </div>
+  }
+
+  <div class="row filter-row">
+    <app-filter-bar
+      [options]="filterOptions"
+      [selected]="selectedBlock"
+      (selectedChange)="onFilterChange($event)"
+    />
+  </div>
+
+  <div class="row room-grid">
+    @for (room of rooms; track room.id) {
+      <app-room-card [room]="room" />
+    }
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.room-page {
+  padding: 32px;
+  max-width: 1400px;
+}
+
+.row {
+  margin-bottom: 24px;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.filter-row {
+  display: flex;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .stats-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .room-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
