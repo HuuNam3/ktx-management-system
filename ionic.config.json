@@ -1,0 +1,7 @@
+{
+  "name": "Frontend_Management_System_KTX",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
