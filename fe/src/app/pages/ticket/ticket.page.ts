@@ -3,6 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
 import { TicketItemComponent, TicketItemData } from '../../components/ticket-item/ticket-item.component';
+import { LucideIconComponent } from '../../components/lucide-icon/lucide-icon.component';
 import { TicketService } from '../../services/ticket.service';
 import { TicketStats, TicketTransaction } from '../../models/ticket.model';
 
@@ -11,7 +12,7 @@ import { TicketStats, TicketTransaction } from '../../models/ticket.model';
   templateUrl: './ticket.page.html',
   styleUrls: ['./ticket.page.scss'],
   standalone: true,
-  imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, TicketItemComponent],
+  imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, TicketItemComponent, LucideIconComponent],
 })
 export class TicketPage implements OnInit {
   stats!: TicketStats;

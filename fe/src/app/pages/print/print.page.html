@@ -1,0 +1,22 @@
+<div class="page">
+  <app-page-header
+    title="In giấy tờ & Tài liệu"
+    description="Tạo và in giấy xác nhận"
+    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
+  />
+
+  <div class="print-grid">
+    @for (doc of documents; track doc.id) {
+      <div class="print-card" (click)="onClick(doc)" [style.--card-color]="doc.color" [style.--card-bg]="doc.bgColor">
+        <div class="print-icon" [style.background]="doc.bgColor">
+          <app-lucide-icon [name]="doc.icon" [size]="26" [color]="doc.color" />
+        </div>
+        <div class="print-info">
+          <h3>{{ doc.title }}</h3>
+          <p>{{ doc.description }}</p>
+        </div>
+        <div class="print-arrow">→</div>
+      </div>
+    }
+  </div>
+</div>

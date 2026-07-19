@@ -1,7 +1,7 @@
 <div class="dashboard-page">
   <app-page-header
     title="Tổng quan"
-    description="Bảng điều khiển trung tâm"
+    description="Thống kê và hoạt động hệ thống KTX"
     [showCheckin]="false"
     [showCheckout]="false"
     [showQR]="false"
@@ -9,10 +9,10 @@
 
   @if (stats) {
     <div class="row stats-row">
-      <app-statistic-card label="Tổng số khách" [value]="stats.totalGuests | number" icon="👥" subtitle="24 check-in hôm nay" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Số phòng trống" [value]="stats.emptyRooms | number" icon="🏠" subtitle="Trên tổng số 120 phòng" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Doanh thu" [value]="formatCurrency(stats.revenue) + 'đ'" icon="💰" subtitle="Tháng 7/2026" color="#F59E0B" bgColor="#FFFBEB" />
-      <app-statistic-card label="Cảnh báo" [value]="stats.alerts | number" icon="🔔" subtitle="Cần xử lý" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Tổng số khách" [value]="stats.totalGuests | number" lucideIcon="users" subtitle="24 check-in hôm nay" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Số phòng trống" [value]="stats.emptyRooms | number" lucideIcon="home" subtitle="Trên tổng số 120 phòng" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Doanh thu" [value]="formatCurrency(stats.revenue) + 'đ'" lucideIcon="dollar-sign" subtitle="Tháng 7/2026" color="#F59E0B" bgColor="#FFFBEB" />
+      <app-statistic-card label="Cảnh báo" [value]="stats.alerts | number" lucideIcon="bell" subtitle="Cần xử lý" color="#DC2626" bgColor="#FEF2F2" />
     </div>
   }
 

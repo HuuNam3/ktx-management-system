@@ -1,7 +1,7 @@
 <div class="room-card" [class]="'status-' + room().status">
   <div class="room-top">
     <span class="room-code">{{ room().code }}</span>
-    <span class="room-icon">{{ statusIcon }}</span>
+    <span class="room-icon"><app-lucide-icon [name]="statusIcon" [size]="22" /></span>
   </div>
   <div class="room-type">{{ room().type }}</div>
   <div class="room-occupancy">

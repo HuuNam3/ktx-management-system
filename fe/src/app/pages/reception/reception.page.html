@@ -15,21 +15,21 @@
       <app-stat-card
         label="Check-in hôm nay"
         [value]="stats.checkinsToday | number"
-        icon="→"
+        lucideIcon="log-in"
         color="var(--success)"
         bgColor="#F0FDF4"
       />
       <app-stat-card
         label="Check-out hôm nay"
         [value]="stats.checkoutsToday | number"
-        icon="←"
+        lucideIcon="log-out"
         color="var(--danger)"
         bgColor="#FEF2F2"
       />
       <app-stat-card
         label="Đang ở"
         [value]="stats.currentOccupants | number"
-        icon="●"
+        lucideIcon="circle"
         color="var(--primary)"
         bgColor="var(--primary-light)"
       />

@@ -1,0 +1,52 @@
+<div class="page">
+  <app-page-header
+    title="Quản lý điện nước"
+    description="Nhập chỉ số và tính toán chi phí"
+    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
+  >
+    <button class="btn btn-primary" (click)="onInput()"><app-lucide-icon name="plus" [size]="18" color="white" /> Nhập chỉ số</button>
+    <button class="btn btn-export" (click)="onExport()"><app-lucide-icon name="download" [size]="18" /> Xuất báo cáo</button>
+  </app-page-header>
+
+  @if (stats) {
+    <div class="row stats-row stats-row-4">
+      <app-statistic-card label="Tổng tiền điện" [value]="formatCurrency(stats.totalElectric)" lucideIcon="zap" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
+      <app-statistic-card label="Tổng tiền nước" [value]="formatCurrency(stats.totalWater)" lucideIcon="droplet" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Đã thu" [value]="formatCurrency(stats.collected)" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Chưa thu" [value]="formatCurrency(stats.uncollected)" lucideIcon="hourglass" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+    </div>
+  }
+
+  <div class="row table-card">
+    <div class="table-hdr table-hdr-ew">
+      <span>Phòng</span>
+      <span>Điện cũ</span>
+      <span>Điện mới</span>
+      <span>Tiêu thụ</span>
+      <span>Tiền điện</span>
+      <span>Nước cũ</span>
+      <span>Nước mới</span>
+      <span>Tiêu thụ</span>
+      <span>Tiền nước</span>
+      <span>Tổng</span>
+      <span>Trạng thái</span>
+    </div>
+    <div class="table-bdy">
+      @for (r of records; track r.id) {
+        <div class="table-row table-row-ew">
+          <span class="cell-name">{{ r.room }}</span>
+          <span>{{ r.electricOld }}</span>
+          <span>{{ r.electricNew }}</span>
+          <span class="cell-usage">{{ r.electricUsage }} kWh</span>
+          <span>{{ formatCurrency(r.electricCost) }}</span>
+          <span>{{ r.waterOld }}</span>
+          <span>{{ r.waterNew }}</span>
+          <span class="cell-usage">{{ r.waterUsage }} m³</span>
+          <span>{{ formatCurrency(r.waterCost) }}</span>
+          <span class="cell-total">{{ formatCurrency(r.total) }}</span>
+          <span><span class="badge" [class]="getStatusBadge(r.status)">{{ getStatusLabel(r.status) }}</span></span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

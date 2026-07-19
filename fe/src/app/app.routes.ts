@@ -22,4 +22,40 @@ export const routes: Routes = [
     path: 've',
     loadComponent: () => import('./pages/ticket/ticket.page').then(m => m.TicketPage),
   },
+  {
+    path: 'khach',
+    loadComponent: () => import('./pages/guest/guest.page').then(m => m.GuestPage),
+  },
+  {
+    path: 'thanh-toan',
+    loadComponent: () => import('./pages/payment/payment.page').then(m => m.PaymentPage),
+  },
+  {
+    path: 'dien-nuoc',
+    loadComponent: () => import('./pages/electric/electric.page').then(m => m.ElectricPage),
+  },
+  {
+    path: 'ho-so',
+    loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage),
+  },
+  {
+    path: 'in-giay-to',
+    loadComponent: () => import('./pages/print/print.page').then(m => m.PrintPage),
+  },
+  {
+    path: 'checklist',
+    loadComponent: () => import('./pages/checklist/checklist.page').then(m => m.ChecklistPage),
+  },
+  {
+    path: 'su-co',
+    loadComponent: () => import('./pages/incident/incident.page').then(m => m.IncidentPage),
+  },
+  {
+    path: 'nha-thau',
+    loadComponent: () => import('./pages/contractor/contractor.page').then(m => m.ContractorPage),
+  },
+  {
+    path: 'phan-hoi',
+    loadComponent: () => import('./pages/feedback/feedback.page').then(m => m.FeedbackPage),
+  },
 ];

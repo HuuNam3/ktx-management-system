@@ -1,0 +1,56 @@
+<div class="page">
+  <app-page-header
+    title="Quản lý Hồ sơ 238"
+    description="Duyệt hồ sơ miễn giảm"
+    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
+  />
+
+  @if (stats) {
+    <div class="row stats-row stats-row-4">
+      <app-statistic-card label="Chờ duyệt" [value]="stats.pending | number" lucideIcon="hourglass" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
+      <app-statistic-card label="Đã duyệt" [value]="stats.approved | number" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Từ chối" [value]="stats.rejected | number" lucideIcon="x-circle" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Tổng hồ sơ" [value]="stats.total | number" lucideIcon="clipboard-list" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+    </div>
+  }
+
+  <div class="row">
+    <app-filter-bar [options]="filterOptions" [selected]="activeFilter" (selectedChange)="onFilterChange($event)" />
+  </div>
+
+  <div class="row table-card">
+    <div class="table-hdr">
+      <span>Mã SV</span>
+      <span>Họ tên</span>
+      <span>Phòng</span>
+      <span>Loại hồ sơ</span>
+      <span>Ngày nộp</span>
+      <span>Tài liệu</span>
+      <span>Trạng thái</span>
+      <span>Thao tác</span>
+    </div>
+    <div class="table-bdy">
+      @for (p of profiles; track p.id) {
+        <div class="table-row">
+          <span class="cell-code">{{ p.studentCode }}</span>
+          <span class="cell-name">{{ p.name }}</span>
+          <span>{{ p.room }}</span>
+          <span>{{ p.type }}</span>
+          <span>{{ p.submitDate }}</span>
+          <span>{{ p.documents }}</span>
+          <span><span class="badge" [class]="getStatusBadge(p.status)">{{ getStatusLabel(p.status) }}</span></span>
+          <span class="cell-actions">
+            @if (p.status === 'cho-duyet') {
+              <button class="btn-icon-only btn-approve" (click)="onApprove(p)" title="Duyệt"><app-lucide-icon name="check" [size]="18" /></button>
+              <button class="btn-icon-only btn-reject" (click)="onReject(p)" title="Từ chối"><app-lucide-icon name="x" [size]="18" /></button>
+            }
+            <button class="btn-icon-only" (click)="onView(p)" title="Xem"><app-lucide-icon name="eye" [size]="18" /></button>
+          </span>
+        </div>
+      }
+      @if (profiles.length === 0) {
+        <div class="empty-state">Không có hồ sơ nào</div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { LucideIconComponent } from '../lucide-icon/lucide-icon.component';
 
 export interface TicketItemData {
   id: number;
@@ -14,6 +15,7 @@ export interface TicketItemData {
   templateUrl: './ticket-item.component.html',
   styleUrls: ['./ticket-item.component.scss'],
   standalone: true,
+  imports: [LucideIconComponent],
 })
 export class TicketItemComponent {
   item = input.required<TicketItemData>();
@@ -24,7 +26,7 @@ export class TicketItemComponent {
   }
 
   get icon(): string {
-    return this.item().type === 'meal' ? '🍽' : '🚗';
+    return this.item().type === 'meal' ? 'utensils-crossed' : 'car';
   }
 
   get iconBg(): string {

@@ -9,11 +9,11 @@
 
   @if (stats) {
     <div class="row stats-row">
-      <app-statistic-card label="Tổng phòng" [value]="stats.total | number" icon="🏢" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Còn trống" [value]="stats.empty | number" icon="✅" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Còn chỗ" [value]="stats.partial | number" icon="🟡" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Đầy" [value]="stats.full | number" icon="🔴" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
-      <app-statistic-card label="Bảo trì" [value]="stats.maintenance | number" icon="⚙" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
+      <app-statistic-card label="Tổng phòng" [value]="stats.total | number" lucideIcon="building" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Còn trống" [value]="stats.empty | number" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Còn chỗ" [value]="stats.partial | number" lucideIcon="minus-circle" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Đầy" [value]="stats.full | number" lucideIcon="x-circle" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Bảo trì" [value]="stats.maintenance | number" lucideIcon="settings" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
     </div>
   }
 

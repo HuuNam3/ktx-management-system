@@ -1,0 +1,68 @@
+<div class="page">
+  <app-page-header
+    title="Quản lý thanh toán"
+    description="Theo dõi công nợ và thanh toán"
+    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
+  />
+
+  @if (stats) {
+    <div class="row stats-row stats-row-4">
+      <app-statistic-card label="Tổng công nợ" [value]="formatCurrency(stats.totalDebt)" lucideIcon="dollar-sign" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Đã thu" [value]="formatCurrency(stats.totalPaid)" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Giao dịch" [value]="stats.totalTransactions | number" lucideIcon="bar-chart-3" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Chờ thu" [value]="stats.pendingCount | number" lucideIcon="hourglass" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
+    </div>
+  }
+
+  <div class="row tabs-row">
+    @for (tab of tabs; track tab.key) {
+      <button class="tab-btn" [class.active]="activeTab === tab.key" (click)="setTab(tab.key)">
+        {{ tab.label }}
+      </button>
+    }
+  </div>
+
+  <div class="row toolbar-row">
+    <div class="toolbar-left">
+      <app-search-input placeholder="Tìm khách hàng, phòng..." (valueChange)="onSearch($event)" />
+    </div>
+    <div class="toolbar-right">
+      <div class="filter-group">
+        @for (opt of statusOptions; track opt.value) {
+          <button class="filter-chip" [class.active]="statusFilter === opt.value" (click)="onStatusFilter(opt.value)">
+            {{ opt.label }}
+          </button>
+        }
+      </div>
+      <button class="btn btn-export"><app-lucide-icon name="download" [size]="18" /> Xuất Excel</button>
+    </div>
+  </div>
+
+  <div class="row table-card">
+    <div class="table-hdr">
+      <span>Khách hàng</span>
+      <span>Phòng</span>
+      <span>Loại phí</span>
+      <span>Số tiền</span>
+      <span>Hạn đóng</span>
+      <span>Trạng thái</span>
+      <span>Thao tác</span>
+    </div>
+    <div class="table-bdy">
+      @for (r of filtered; track r.id) {
+        <div class="table-row">
+          <span class="cell-name">{{ r.customer }}</span>
+          <span>{{ r.room }}</span>
+          <span>{{ r.feeType }}</span>
+          <span class="cell-amount">{{ formatCurrency(r.amount) }}</span>
+          <span>{{ r.dueDate }}</span>
+          <span><span class="badge" [class]="getStatusBadge(r.status)">{{ getStatusLabel(r.status) }}</span></span>
+          <span><button class="btn-icon-only" title="Thanh toán"><app-lucide-icon name="credit-card" [size]="18" /></button></span>
+        </div>
+      }
+      @if (filtered.length === 0) {
+        <div class="empty-state">Không có dữ liệu</div>
+      }
+    </div>
+  </div>
+</div>

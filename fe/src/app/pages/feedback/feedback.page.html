@@ -1,0 +1,48 @@
+<div class="page">
+  <app-page-header
+    title="Phản hồi & Khiếu nại"
+    description="Quản lý góp ý từ sinh viên"
+    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
+  />
+
+  @if (stats) {
+    <div class="row stats-row stats-row-4">
+      <app-statistic-card label="Chờ xử lý" [value]="stats.pending | number" lucideIcon="hourglass" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
+      <app-statistic-card label="Đã xử lý" [value]="stats.resolved | number" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Ưu tiên cao" [value]="stats.highPriority | number" lucideIcon="circle-alert" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Tổng phản hồi" [value]="stats.total | number" lucideIcon="bar-chart-3" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+    </div>
+  }
+
+  <div class="row table-card">
+    <div class="table-hdr table-hdr-fb">
+      <span>Sinh viên</span>
+      <span>Phòng</span>
+      <span>Loại</span>
+      <span>Nội dung</span>
+      <span>Ngày gửi</span>
+      <span>Mức độ</span>
+      <span>Trạng thái</span>
+      <span>Thao tác</span>
+    </div>
+    <div class="table-bdy">
+      @for (f of feedbacks; track f.id) {
+        <div class="table-row table-row-fb">
+          <span class="cell-name">{{ f.student }}</span>
+          <span>{{ f.room }}</span>
+          <span>{{ f.type }}</span>
+          <span class="cell-content">{{ f.content }}</span>
+          <span>{{ f.date }}</span>
+          <span><span class="badge" [class]="getPriorityBadge(f.priority)">{{ getPriorityLabel(f.priority) }}</span></span>
+          <span><span class="badge" [class]="getStatusBadge(f.status)">{{ getStatusLabel(f.status) }}</span></span>
+          <span>
+            <button class="btn-icon-only" title="Xem"><app-lucide-icon name="eye" [size]="18" /></button>
+            @if (f.status === 'cho-xu-ly') {
+              <button class="btn-icon-only" title="Xử lý"><app-lucide-icon name="pencil" [size]="18" /></button>
+            }
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

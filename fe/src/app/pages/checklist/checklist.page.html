@@ -1,0 +1,32 @@
+<div class="page">
+  <app-page-header
+    title="Checklist nhân viên"
+    description="Danh sách công việc theo ca"
+    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
+  />
+
+  @if (stats) {
+    <div class="row stats-row stats-row-3">
+      <app-statistic-card label="Ca hiện tại" [value]="stats.currentShift | number" lucideIcon="clock" subtitle="Công việc" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Đã hoàn thành" [value]="stats.completed | number" lucideIcon="check-circle" subtitle="Công việc" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Còn lại" [value]="stats.remaining | number" lucideIcon="hourglass" subtitle="Công việc" color="#F59E0B" bgColor="#FFFBEB" />
+    </div>
+  }
+
+  <div class="row checklist-card">
+    @for (item of items; track item.id) {
+      <div class="checklist-item" [class.done]="item.status === 'done'">
+        <div class="check-box" (click)="toggle(item)">
+          @if (item.status === 'done') {
+            <app-lucide-icon name="check" [size]="14" color="white" />
+          }
+        </div>
+        <div class="check-content">
+          <span class="check-task">{{ item.task }}</span>
+          <span class="check-time">{{ item.time }}</span>
+        </div>
+        <span class="badge" [class]="getStatusBadge(item.status)">{{ getStatusLabel(item.status) }}</span>
+      </div>
+    }
+  </div>
+</div>

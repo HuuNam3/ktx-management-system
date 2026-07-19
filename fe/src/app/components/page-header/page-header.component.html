@@ -8,19 +8,19 @@
   <div class="header-actions">
     @if (showCheckin()) {
       <button class="btn btn-checkin" (click)="checkinClick.emit()">
-        <span class="btn-icon">+</span>
+        <app-lucide-icon name="plus" [size]="18" color="white" />
         Check-in
       </button>
     }
     @if (showCheckout()) {
       <button class="btn btn-checkout" (click)="checkoutClick.emit()">
-        <span class="btn-icon">→</span>
+        <app-lucide-icon name="arrow-right" [size]="18" color="white" />
         Check-out
       </button>
     }
       @if (showQR()) {
       <button class="btn btn-qr" (click)="qrClick.emit()">
-        <span class="btn-icon">◈</span>
+        <app-lucide-icon name="qr-code" [size]="18" color="white" />
         Quét QR
       </button>
     }

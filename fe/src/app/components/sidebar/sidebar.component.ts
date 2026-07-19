@@ -17,8 +17,8 @@ import {
   alertCircleOutline, alertCircleSharp,
   hammerOutline, hammerSharp,
   chatbubbleOutline, chatbubbleSharp,
-  chevronBackOutline, chevronBackSharp,
-  chevronForwardOutline, chevronForwardSharp
+  closeOutline, closeSharp,
+  listOutline, listSharp
 } from 'ionicons/icons';
 
 interface MenuItem {
@@ -75,8 +75,8 @@ export class SidebarComponent {
       alertCircleOutline, alertCircleSharp,
       hammerOutline, hammerSharp,
       chatbubbleOutline, chatbubbleSharp,
-      chevronBackOutline, chevronBackSharp,
-      chevronForwardOutline, chevronForwardSharp
+      closeOutline, closeSharp,
+      listOutline, listSharp
     });
   }
 }

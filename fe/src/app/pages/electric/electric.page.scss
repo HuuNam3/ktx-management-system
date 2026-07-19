@@ -1,0 +1,16 @@
+.btn-primary {
+  display: flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; border: none; cursor: pointer;
+  background: var(--primary); color: white; &:hover { background: #1D4ED8; }
+}
+
+.btn-export {
+  display: flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; border: 1px solid var(--border);
+  background: var(--card-bg); color: var(--text-primary); cursor: pointer; &:hover { border-color: var(--primary); color: var(--primary); }
+}
+
+.table-hdr-ew, .table-row-ew {
+  grid-template-columns: 70px 70px 70px 70px 90px 70px 70px 70px 90px 100px 90px;
+}
+
+.cell-usage { font-weight: 600; color: var(--primary); }
+.cell-total { font-weight: 700; color: var(--text-primary); }

@@ -1,6 +1,6 @@
 <div class="ticket-item">
   <div class="ticket-icon" [style.background]="iconBg">
-    <span>{{ icon }}</span>
+    <app-lucide-icon [name]="icon" [size]="22" [color]="item().type === 'meal' ? '#16A34A' : '#2563EB'" />
   </div>
   <div class="ticket-info">
     <span class="ticket-name">{{ item().name }}</span>

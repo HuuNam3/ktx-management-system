@@ -1,7 +1,7 @@
 <div class="sidebar" [class.collapsed]="collapsed()">
   <div class="sidebar-header">
     <div class="logo-area">
-      <div class="logo-icon">KTX</div>
+      <div class="logo-icon"><ion-icon name="bed-outline"></ion-icon></div>
       @if (!collapsed()) {
         <div class="logo-text">
           <h2>KTX Tây Đô</h2>
@@ -10,7 +10,7 @@
       }
     </div>
     <button class="collapse-btn" (click)="toggleCollapse()">
-      <ion-icon [name]="collapsed() ? 'chevron-forward-outline' : 'chevron-back-outline'"></ion-icon>
+      <ion-icon [name]="collapsed() ? 'list-outline' : 'close-outline'"></ion-icon>
     </button>
   </div>
 

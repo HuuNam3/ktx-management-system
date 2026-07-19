@@ -9,10 +9,10 @@
 
   @if (stats) {
     <div class="row stats-row">
-      <app-statistic-card label="Check-in hôm nay" [value]="stats.todayCheckins | number" icon="📥" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Check-out hôm nay" [value]="stats.todayCheckouts | number" icon="📤" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
-      <app-statistic-card label="Tổng lượt vào" [value]="stats.totalEntries | number" icon="🚪" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Tổng lượt ra" [value]="stats.totalExits | number" icon="🚶" subtitle="" color="#8B5CF6" bgColor="#F3E8FF" />
+      <app-statistic-card label="Check-in hôm nay" [value]="stats.todayCheckins | number" lucideIcon="log-in" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Check-out hôm nay" [value]="stats.todayCheckouts | number" lucideIcon="log-out" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
+      <app-statistic-card label="Tổng lượt vào" [value]="stats.totalEntries | number" lucideIcon="door-open" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Tổng lượt ra" [value]="stats.totalExits | number" lucideIcon="footprints" subtitle="" color="#8B5CF6" bgColor="#F3E8FF" />
     </div>
   }
 

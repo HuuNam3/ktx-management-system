@@ -7,6 +7,10 @@
     }
   </div>
   <div class="stat-icon-box">
-    <span class="stat-icon-text">{{ icon() }}</span>
+    @if (lucideIcon()) {
+      <app-lucide-icon [name]="lucideIcon()" [size]="28" [color]="color()" />
+    } @else {
+      <span class="stat-icon-text">{{ icon() }}</span>
+    }
   </div>
 </div>
