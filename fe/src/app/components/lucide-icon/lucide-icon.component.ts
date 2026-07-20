@@ -5,7 +5,7 @@ import { createElement } from 'lucide';
 @Component({
   selector: 'app-lucide-icon',
   template: '',
-  styles: [' :host { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; } '],
+  host: { class: 'inline-flex items-center justify-center align-middle' },
   standalone: true,
 })
 export class LucideIconComponent {

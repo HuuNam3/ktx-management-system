@@ -3,7 +3,6 @@ import { Component, input, computed } from '@angular/core';
 @Component({
   selector: 'app-chart-card',
   templateUrl: './chart-card.component.html',
-  styleUrls: ['./chart-card.component.scss'],
   standalone: true,
 })
 export class ChartCardComponent {

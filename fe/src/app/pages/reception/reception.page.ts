@@ -10,7 +10,6 @@ import { ReceptionStats, CheckinRecord } from '../../models/reception.model';
 @Component({
   selector: 'app-reception',
   templateUrl: './reception.page.html',
-  styleUrls: ['./reception.page.scss'],
   standalone: true,
   imports: [
     DecimalPipe,

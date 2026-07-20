@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ folder }}</ion-title>
   </ion-toolbar>
@@ -14,8 +14,8 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong class="capitalize">{{ folder }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div id="container" class="text-center absolute inset-x-0 top-1/2 -translate-y-1/2">
+    <strong class="capitalize text-xl leading-[26px]">{{ folder }}</strong>
+    <p class="text-base leading-[22px] text-[#8c8c8c] m-0">Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components" class="no-underline">UI Components</a></p>
   </div>
 </ion-content>

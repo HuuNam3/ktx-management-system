@@ -4,7 +4,6 @@ import { RecentCheckinItemComponent, CheckinItem } from '../recent-checkin-item/
 @Component({
   selector: 'app-recent-checkin-list',
   templateUrl: './recent-checkin-list.component.html',
-  styleUrls: ['./recent-checkin-list.component.scss'],
   standalone: true,
   imports: [RecentCheckinItemComponent],
 })

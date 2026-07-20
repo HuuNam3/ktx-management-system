@@ -1,16 +1,16 @@
-<div class="stat-card" [style.--stat-color]="color()" [style.--stat-bg]="bgColor()">
-  <div class="stat-body">
-    <span class="stat-label">{{ label() }}</span>
-    <span class="stat-value">{{ value() }}</span>
+<div class="bg-card-bg rounded-[20px] p-7 border border-border flex items-center justify-between h-full min-h-[150px] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg" [style.--stat-color]="color()" [style.--stat-bg]="bgColor()">
+  <div class="flex flex-col gap-1.5">
+    <span class="text-[15px] text-text-secondary font-medium">{{ label() }}</span>
+    <span class="text-5xl font-bold text-text-primary leading-[1.1]">{{ value() }}</span>
     @if (subtitle()) {
-      <span class="stat-subtitle">{{ subtitle() }}</span>
+      <span class="text-sm text-text-secondary">{{ subtitle() }}</span>
     }
   </div>
-  <div class="stat-icon-box">
+  <div class="size-14 rounded-2xl bg-[var(--stat-bg)] flex items-center justify-center shrink-0">
     @if (lucideIcon()) {
       <app-lucide-icon [name]="lucideIcon()" [size]="28" [color]="color()" />
     } @else {
-      <span class="stat-icon-text">{{ icon() }}</span>
+      <span class="text-[28px] text-[var(--stat-color)]">{{ icon() }}</span>
     }
   </div>
 </div>

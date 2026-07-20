@@ -1,4 +1,4 @@
-<div class="page">
+<div class="p-8 max-w-[1400px]">
   <app-page-header
     title="Checklist nhân viên"
     description="Danh sách công việc theo ca"
@@ -6,26 +6,26 @@
   />
 
   @if (stats) {
-    <div class="row stats-row stats-row-3">
+    <div class="mb-6 grid gap-4 grid-cols-3">
       <app-statistic-card label="Ca hiện tại" [value]="stats.currentShift | number" lucideIcon="clock" subtitle="Công việc" color="#2563EB" bgColor="#EFF6FF" />
       <app-statistic-card label="Đã hoàn thành" [value]="stats.completed | number" lucideIcon="check-circle" subtitle="Công việc" color="#16A34A" bgColor="#F0FDF4" />
       <app-statistic-card label="Còn lại" [value]="stats.remaining | number" lucideIcon="hourglass" subtitle="Công việc" color="#F59E0B" bgColor="#FFFBEB" />
     </div>
   }
 
-  <div class="row checklist-card">
+  <div class="mb-6 bg-card-bg rounded-[8px] border border-border">
     @for (item of items; track item.id) {
-      <div class="checklist-item" [class.done]="item.status === 'done'">
-        <div class="check-box" (click)="toggle(item)">
+      <div class="flex items-center gap-4 px-6 py-4 transition-colors duration-200 border-t border-border first:border-t-0 hover:bg-[#FAFBFC]" [class.opacity-70]="item.status === 'done'">
+        <div class="size-6 rounded-[6px] border-2 border-border flex items-center justify-center cursor-pointer shrink-0 transition-all duration-200 hover:border-primary" [class.bg-success]="item.status === 'done'" [class.border-success]="item.status === 'done'" (click)="toggle(item)">
           @if (item.status === 'done') {
             <app-lucide-icon name="check" [size]="14" color="white" />
           }
         </div>
-        <div class="check-content">
-          <span class="check-task">{{ item.task }}</span>
-          <span class="check-time">{{ item.time }}</span>
+        <div class="flex flex-col gap-0.5 flex-1">
+          <span class="text-[15px] font-medium text-text-primary" [class.line-through]="item.status === 'done'">{{ item.task }}</span>
+          <span class="text-[13px] text-text-secondary">{{ item.time }}</span>
         </div>
-        <span class="badge" [class]="getStatusBadge(item.status)">{{ getStatusLabel(item.status) }}</span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap" [class]="getStatusBadge(item.status)">{{ getStatusLabel(item.status) }}</span>
       </div>
     }
   </div>

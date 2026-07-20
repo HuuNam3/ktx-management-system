@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@ionic/angular-toolkit:page": {
-          "styleext": "scss",
+          "styleext": "css",
           "standalone": true
         }
       },
@@ -27,7 +27,7 @@
               "src/polyfills.ts"
             ],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
+            "inlineStyleLanguage": "css",
             "assets": [
               {
                 "glob": "**/*",
@@ -36,8 +36,8 @@
               }
             ],
             "styles": [
-              "src/global.scss",
-              "src/theme/variables.scss"
+              "src/tailwind.css",
+              "src/global.css"
             ],
             "scripts": [],
             "browser": "src/main.ts"
@@ -104,7 +104,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "inlineStyleLanguage": "scss",
+            "inlineStyleLanguage": "css",
             "assets": [
               {
                 "glob": "**/*",
@@ -114,8 +114,7 @@
             ],
             "styles": [
               "src/tailwind.css",
-              "src/global.scss",
-              "src/theme/variables.scss"
+              "src/global.css"
             ],
             "scripts": []
           },
@@ -140,10 +139,10 @@
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
-      "styleext": "scss"
+      "styleext": "css"
     },
     "@ionic/angular-toolkit:page": {
-      "styleext": "scss"
+      "styleext": "css"
     },
     "@angular-eslint/schematics:application": {
       "setParserOptionsProject": true

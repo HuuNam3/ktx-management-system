@@ -1,4 +1,4 @@
-<div class="reception-page">
+<div class="p-8 max-w-[1400px] max-md:p-4">
   <app-page-header
     title="Quầy Lễ Tân"
     description="Quản lý check-in/out nhanh chóng"
@@ -7,11 +7,11 @@
     (qrClick)="onQr()"
   />
 
-  <div class="row row-1">
-    <div class="col-search">
+  <div class="mb-6 grid grid-cols-2 gap-6 max-[1200px]:grid-cols-1">
+    <div class="flex">
       <app-search-card />
     </div>
-    <div class="col-stats">
+    <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1">
       <app-stat-card
         label="Check-in hôm nay"
         [value]="stats.checkinsToday | number"
@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div class="row row-2">
+  <div class="mb-6 grid grid-cols-1">
     <app-recent-checkin-list [items]="checkins" />
   </div>
 </div>

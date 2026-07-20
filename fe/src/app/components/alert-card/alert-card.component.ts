@@ -10,7 +10,6 @@ export interface AlertEntry {
 @Component({
   selector: 'app-alert-card',
   templateUrl: './alert-card.component.html',
-  styleUrls: ['./alert-card.component.scss'],
   standalone: true,
 })
 export class AlertCardComponent {

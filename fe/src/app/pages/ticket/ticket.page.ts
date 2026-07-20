@@ -10,7 +10,6 @@ import { TicketStats, TicketTransaction } from '../../models/ticket.model';
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.page.html',
-  styleUrls: ['./ticket.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, TicketItemComponent, LucideIconComponent],
 })

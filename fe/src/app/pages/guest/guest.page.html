@@ -1,4 +1,4 @@
-<div class="page">
+<div class="p-8 max-w-[1400px]">
   <app-page-header
     title="Quản lý khách & Sinh viên"
     description="Danh sách và thông tin chi tiết"
@@ -6,7 +6,7 @@
   />
 
   @if (stats) {
-    <div class="row stats-row">
+    <div class="mb-6 grid gap-4 grid-cols-4">
       <app-statistic-card label="Tổng khách" [value]="stats.total | number" lucideIcon="users" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
       <app-statistic-card label="Sinh viên" [value]="stats.students | number" lucideIcon="graduation-cap" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
       <app-statistic-card label="Khách vãng lai" [value]="stats.guests | number" lucideIcon="footprints" subtitle="" color="#7C3AED" bgColor="#F3E8FF" />

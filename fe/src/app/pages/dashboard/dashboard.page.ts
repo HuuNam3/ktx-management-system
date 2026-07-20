@@ -11,7 +11,6 @@ import { DashboardStats, RevenueEntry, RoomDistribution, TimelineActivity, Alert
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss'],
   standalone: true,
   imports: [
     DecimalPipe,

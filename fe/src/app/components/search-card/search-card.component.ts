@@ -6,7 +6,6 @@ import { searchOutline, searchSharp } from 'ionicons/icons';
 @Component({
   selector: 'app-search-card',
   templateUrl: './search-card.component.html',
-  styleUrls: ['./search-card.component.scss'],
   standalone: true,
   imports: [IonIcon],
 })

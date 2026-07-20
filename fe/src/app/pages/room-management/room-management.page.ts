@@ -10,7 +10,6 @@ import { RoomStats, Room, BuildingBlock } from '../../models/room.model';
 @Component({
   selector: 'app-room-management',
   templateUrl: './room-management.page.html',
-  styleUrls: ['./room-management.page.scss'],
   standalone: true,
   imports: [
     DecimalPipe,

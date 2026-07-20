@@ -13,7 +13,6 @@ export interface TicketItemData {
 @Component({
   selector: 'app-ticket-item',
   templateUrl: './ticket-item.component.html',
-  styleUrls: ['./ticket-item.component.scss'],
   standalone: true,
   imports: [LucideIconComponent],
 })

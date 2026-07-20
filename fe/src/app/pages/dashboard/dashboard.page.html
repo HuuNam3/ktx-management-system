@@ -1,4 +1,4 @@
-<div class="dashboard-page">
+<div class="p-8 max-w-[1400px]">
   <app-page-header
     title="Tổng quan"
     description="Thống kê và hoạt động hệ thống KTX"
@@ -8,7 +8,7 @@
   />
 
   @if (stats) {
-    <div class="row stats-row">
+    <div class="mb-6 grid gap-4 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
       <app-statistic-card label="Tổng số khách" [value]="stats.totalGuests | number" lucideIcon="users" subtitle="24 check-in hôm nay" color="#2563EB" bgColor="#EFF6FF" />
       <app-statistic-card label="Số phòng trống" [value]="stats.emptyRooms | number" lucideIcon="home" subtitle="Trên tổng số 120 phòng" color="#16A34A" bgColor="#F0FDF4" />
       <app-statistic-card label="Doanh thu" [value]="formatCurrency(stats.revenue) + 'đ'" lucideIcon="dollar-sign" subtitle="Tháng 7/2026" color="#F59E0B" bgColor="#FFFBEB" />
@@ -16,7 +16,7 @@
     </div>
   }
 
-  <div class="row charts-row">
+  <div class="mb-6 grid gap-6 grid-cols-[1.6fr_1fr] max-[1200px]:grid-cols-1">
     <div class="col-chart-main">
       <app-chart-card
         title="Doanh thu 7 ngày"
@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <div class="row bottom-row">
+  <div class="mb-6 grid gap-6 grid-cols-2 max-[1200px]:grid-cols-1">
     <div class="col-timeline">
       <app-timeline [items]="timelineItems" />
     </div>

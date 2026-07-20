@@ -9,7 +9,6 @@ import { FeedbackStats, Feedback } from '../../models/feedback.model';
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.page.html',
-  styleUrls: ['./feedback.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, LucideIconComponent],
 })

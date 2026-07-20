@@ -4,7 +4,6 @@ import { LucideIconComponent } from '../lucide-icon/lucide-icon.component';
 @Component({
   selector: 'app-stat-card',
   templateUrl: './stat-card.component.html',
-  styleUrls: ['./stat-card.component.scss'],
   standalone: true,
   imports: [LucideIconComponent],
 })

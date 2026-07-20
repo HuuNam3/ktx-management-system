@@ -11,7 +11,6 @@ export interface TimelineEntry {
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss'],
   standalone: true,
 })
 export class TimelineComponent {

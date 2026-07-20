@@ -6,7 +6,6 @@ import { PrintDocument } from '../../models/print.model';
 @Component({
   selector: 'app-print',
   templateUrl: './print.page.html',
-  styleUrls: ['./print.page.scss'],
   standalone: true,
   imports: [PageHeaderComponent, LucideIconComponent],
 })

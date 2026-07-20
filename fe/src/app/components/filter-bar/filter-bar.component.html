@@ -1,8 +1,10 @@
-<div class="filter-bar">
+<div class="flex gap-2 flex-wrap">
   @for (opt of options(); track opt.value) {
     <button
-      class="filter-chip"
-      [class.active]="selected() === opt.value"
+      class="px-5 py-2 rounded-full border border-border bg-card-bg text-text-secondary text-sm font-medium cursor-pointer transition-all duration-200 hover:border-primary hover:text-primary"
+      [class.bg-primary]="selected() === opt.value"
+      [class.border-primary]="selected() === opt.value"
+      [class.text-white]="selected() === opt.value"
       (click)="select(opt.value)"
     >
       {{ opt.label }}

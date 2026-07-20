@@ -1,8 +1,8 @@
-<div class="search-wrapper">
-  <ion-icon name="search-outline" class="search-icon"></ion-icon>
+<div class="relative">
+  <ion-icon name="search-outline" class="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-text-secondary pointer-events-none"></ion-icon>
   <input
     type="text"
-    class="search-input"
+    class="w-full py-[14px] pl-12 pr-4 border border-border rounded-xl text-[15px] outline-none bg-bg text-text-primary transition-colors duration-200 placeholder:text-gray-400 focus:border-primary focus:ring-3 focus:ring-primary/10"
     [placeholder]="placeholder()"
     (input)="valueChange.emit($any($event.target).value)"
   />

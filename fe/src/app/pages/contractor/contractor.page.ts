@@ -9,7 +9,6 @@ import { ContractorStats, ContractorRecord } from '../../models/contractor.model
 @Component({
   selector: 'app-contractor',
   templateUrl: './contractor.page.html',
-  styleUrls: ['./contractor.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, LucideIconComponent],
 })

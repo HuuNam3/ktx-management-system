@@ -4,7 +4,6 @@ import { LucideIconComponent } from '../lucide-icon/lucide-icon.component';
 @Component({
   selector: 'app-page-header',
   templateUrl: './page-header.component.html',
-  styleUrls: ['./page-header.component.scss'],
   standalone: true,
   imports: [LucideIconComponent],
 })

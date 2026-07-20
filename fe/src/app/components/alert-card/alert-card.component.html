@@ -1,11 +1,14 @@
-<div class="alert-card">
-  <h3>{{ title() }}</h3>
-  <div class="alert-list">
+<div class="bg-card-bg rounded-2xl p-6 border border-border">
+  <h3 class="text-xl font-semibold text-text-primary m-0 mb-4">{{ title() }}</h3>
+  <div class="flex flex-col gap-1">
     @for (alert of alerts(); track alert.id) {
-      <div class="alert-item" [class]="'alert-' + alert.type">
-        <span class="alert-icon">{{ getTypeIcon(alert.type) }}</span>
-        <span class="alert-title">{{ alert.title }}</span>
-        <span class="alert-time">{{ alert.time }}</span>
+      <div class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm"
+           [class]="alert.type === 'danger' ? 'bg-[#FEF2F2]' : alert.type === 'warning' ? 'bg-[#FFFBEB]' : 'bg-[#EFF6FF]'">
+        <span class="text-lg shrink-0"
+              [class]="alert.type === 'danger' ? 'text-danger' : alert.type === 'warning' ? 'text-warning' : 'text-primary'">{{ getTypeIcon(alert.type) }}</span>
+        <span class="flex-1 font-medium"
+              [class]="alert.type === 'danger' ? 'text-[#991B1B]' : alert.type === 'warning' ? 'text-[#92400E]' : 'text-[#1E40AF]'">{{ alert.title }}</span>
+        <span class="text-xs text-text-secondary shrink-0">{{ alert.time }}</span>
       </div>
     }
   </div>

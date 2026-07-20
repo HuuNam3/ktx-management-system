@@ -3,18 +3,18 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'app-status-tag',
   templateUrl: './status-tag.component.html',
-  styleUrls: ['./status-tag.component.scss'],
   standalone: true,
 })
 export class StatusTagComponent {
   type = input.required<string>();
 
   get badgeClass(): string {
+    const base = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap';
     switch (this.type()) {
-      case 'sinh-vien': return 'badge-student';
-      case 'khach': return 'badge-guest';
-      case 'hoc-vien': return 'badge-trainee';
-      default: return 'badge-default';
+      case 'sinh-vien': return `${base} bg-[#E0F2FE] text-[#0284C7]`;
+      case 'khach': return `${base} bg-[#F3E8FF] text-[#7C3AED]`;
+      case 'hoc-vien': return `${base} bg-[#FFF7ED] text-[#EA580C]`;
+      default: return `${base} bg-bg text-text-secondary`;
     }
   }
 

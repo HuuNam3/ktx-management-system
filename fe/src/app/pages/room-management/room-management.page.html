@@ -1,4 +1,4 @@
-<div class="room-page">
+<div class="page">
   <app-page-header
     title="Quản lý phòng"
     description="Quản lý thông tin phòng ở"
@@ -8,7 +8,7 @@
   />
 
   @if (stats) {
-    <div class="row stats-row">
+    <div class="row stats-row grid-cols-5 max-lg:grid-cols-3 max-sm:grid-cols-2">
       <app-statistic-card label="Tổng phòng" [value]="stats.total | number" lucideIcon="building" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
       <app-statistic-card label="Còn trống" [value]="stats.empty | number" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
       <app-statistic-card label="Còn chỗ" [value]="stats.partial | number" lucideIcon="minus-circle" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
@@ -17,7 +17,7 @@
     </div>
   }
 
-  <div class="row filter-row">
+  <div class="row flex">
     <app-filter-bar
       [options]="filterOptions"
       [selected]="selectedBlock"
@@ -25,7 +25,7 @@
     />
   </div>
 
-  <div class="row room-grid">
+  <div class="row grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-5 max-sm:grid-cols-2">
     @for (room of rooms; track room.id) {
       <app-room-card [room]="room" />
     }

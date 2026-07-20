@@ -1,11 +1,11 @@
-<div class="ticket-item">
-  <div class="ticket-icon" [style.background]="iconBg">
+<div class="flex items-center gap-4 py-4 border-t border-border first:border-t-0">
+  <div class="size-12 rounded-[14px] flex items-center justify-center shrink-0" [style.background]="iconBg">
     <app-lucide-icon [name]="icon" [size]="22" [color]="item().type === 'meal' ? '#16A34A' : '#2563EB'" />
   </div>
-  <div class="ticket-info">
-    <span class="ticket-name">{{ item().name }}</span>
-    <span class="ticket-desc">{{ item().description }}</span>
-    <span class="ticket-time">{{ item().time }}</span>
+  <div class="flex-1 min-w-0 flex flex-col gap-[3px]">
+    <span class="text-[15px] font-semibold text-text-primary">{{ item().name }}</span>
+    <span class="text-[13px] text-text-secondary">{{ item().description }}</span>
+    <span class="text-xs text-text-secondary">{{ item().time }}</span>
   </div>
-  <div class="ticket-amount">{{ formattedAmount }}</div>
+  <div class="text-lg font-bold text-text-primary shrink-0 whitespace-nowrap">{{ formattedAmount }}</div>
 </div>

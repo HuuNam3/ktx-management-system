@@ -10,7 +10,6 @@ import { ProfileStats, Profile238, ProfileFilter } from '../../models/profile.mo
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, FilterBarComponent, LucideIconComponent],
 })

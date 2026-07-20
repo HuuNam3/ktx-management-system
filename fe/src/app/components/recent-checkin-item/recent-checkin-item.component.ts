@@ -16,7 +16,6 @@ export interface CheckinItem {
 @Component({
   selector: 'app-recent-checkin-item',
   templateUrl: './recent-checkin-item.component.html',
-  styleUrls: ['./recent-checkin-item.component.scss'],
   standalone: true,
   imports: [StatusTagComponent, IonIcon],
 })

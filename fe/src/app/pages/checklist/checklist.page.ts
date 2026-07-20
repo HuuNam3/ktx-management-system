@@ -9,7 +9,6 @@ import { ChecklistStats, ChecklistItem } from '../../models/checklist.model';
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.page.html',
-  styleUrls: ['./checklist.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, LucideIconComponent],
 })

@@ -1,25 +1,25 @@
-<div class="page-header">
-  <div class="header-text">
-    <h1>{{ title() }}</h1>
+<div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+  <div>
+    <h1 class="text-[28px] font-bold text-text-primary m-0">{{ title() }}</h1>
     @if (description()) {
-      <p>{{ description() }}</p>
+      <p class="text-[15px] text-text-secondary mt-1">{{ description() }}</p>
     }
   </div>
-  <div class="header-actions">
+  <div class="flex gap-3 flex-wrap">
     @if (showCheckin()) {
-      <button class="btn btn-checkin" (click)="checkinClick.emit()">
+      <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-semibold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-success text-white hover:bg-[#15803D]" (click)="checkinClick.emit()">
         <app-lucide-icon name="plus" [size]="18" color="white" />
         Check-in
       </button>
     }
     @if (showCheckout()) {
-      <button class="btn btn-checkout" (click)="checkoutClick.emit()">
+      <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-semibold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-danger text-white hover:bg-[#B91C1C]" (click)="checkoutClick.emit()">
         <app-lucide-icon name="arrow-right" [size]="18" color="white" />
         Check-out
       </button>
     }
-      @if (showQR()) {
-      <button class="btn btn-qr" (click)="qrClick.emit()">
+    @if (showQR()) {
+      <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-semibold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-primary text-white hover:bg-[#1D4ED8]" (click)="qrClick.emit()">
         <app-lucide-icon name="qr-code" [size]="18" color="white" />
         Quét QR
       </button>

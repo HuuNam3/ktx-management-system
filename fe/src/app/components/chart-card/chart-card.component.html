@@ -1,17 +1,17 @@
-<div class="chart-card">
-  <div class="chart-header">
-    <h3>{{ title() }}</h3>
+<div class="bg-card-bg rounded-xl p-6 border border-border">
+  <div class="flex justify-between items-center mb-5">
+    <h3 class="text-xl font-semibold text-text-primary m-0">{{ title() }}</h3>
     @if (showExport()) {
-      <button class="btn-export">Xuất báo cáo →</button>
+      <button class="bg-transparent border border-border px-4 py-2 rounded-[10px] text-sm text-primary cursor-pointer font-medium hover:bg-primary-light">Xuất báo cáo →</button>
     }
   </div>
-  <div class="chart-body">
+  <div>
     @if (type() === 'line') {
-      <svg class="line-chart" viewBox="0 0 300 120" preserveAspectRatio="xMidYMid meet">
+      <svg class="w-full h-auto" viewBox="0 0 300 120" preserveAspectRatio="xMidYMid meet">
         <polyline
           [attr.points]="linePoints()"
           fill="none"
-          stroke="var(--primary)"
+          stroke="var(--color-primary)"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -23,20 +23,20 @@
         />
         <defs>
           <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--primary)" />
-            <stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
+            <stop offset="0%" stop-color="var(--color-primary)" />
+            <stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0" />
           </linearGradient>
         </defs>
       </svg>
-      <div class="chart-labels">
+      <div class="flex justify-between mt-2 text-xs text-text-secondary">
         @for (label of labels(); track label) {
           <span>{{ label }}</span>
         }
       </div>
     }
     @if (type() === 'donut') {
-      <div class="donut-container">
-        <svg viewBox="0 0 42 42" class="donut-svg">
+      <div class="relative w-40 mx-auto mb-5">
+        <svg viewBox="0 0 42 42" class="w-full h-auto">
           @for (seg of donutSegments(); track $index) {
             <circle
               cx="21" cy="21" r="15.9"
@@ -49,16 +49,16 @@
             />
           }
         </svg>
-        <div class="donut-center">
-          <span class="donut-total">{{ totalValue() }}</span>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-2xl font-bold text-text-primary">{{ totalValue() }}</span>
         </div>
       </div>
-      <div class="donut-legend">
+      <div class="flex flex-col gap-2.5">
         @for (item of legendItems(); track $index) {
-          <div class="legend-item">
-            <span class="legend-dot" [style.background]="item.color"></span>
-            <span class="legend-label">{{ item.label }}</span>
-            <span class="legend-value">{{ item.value }}</span>
+          <div class="flex items-center gap-2.5 text-sm">
+            <span class="w-2.5 h-2.5 rounded-full shrink-0" [style.background]="item.color"></span>
+            <span class="flex-1 text-text-secondary">{{ item.label }}</span>
+            <span class="font-semibold text-text-primary">{{ item.value }}</span>
           </div>
         }
       </div>

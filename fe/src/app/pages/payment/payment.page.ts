@@ -10,7 +10,6 @@ import { PaymentStats, PaymentRecord, PaymentStatus, PaymentTab } from '../../mo
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
-  styleUrls: ['./payment.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, SearchInputComponent, LucideIconComponent],
 })

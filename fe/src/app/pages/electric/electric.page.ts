@@ -8,7 +8,6 @@ import { ElectricWaterStats, ElectricWaterRecord } from '../../models/electric.m
 @Component({
   selector: 'app-electric',
   templateUrl: './electric.page.html',
-  styleUrls: ['./electric.page.scss'],
   standalone: true,
   imports: [PageHeaderComponent, StatisticCardComponent, LucideIconComponent],
 })

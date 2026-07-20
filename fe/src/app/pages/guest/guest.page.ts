@@ -10,7 +10,6 @@ import { GuestStats, Guest } from '../../models/guest.model';
 @Component({
   selector: 'app-guest',
   templateUrl: './guest.page.html',
-  styleUrls: ['./guest.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, SearchInputComponent, LucideIconComponent],
 })

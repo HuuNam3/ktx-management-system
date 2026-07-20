@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon } from '@ionic/angular/standalone';
+import { LucideIconComponent } from '../lucide-icon/lucide-icon.component';
 import { addIcons } from 'ionicons';
 import {
   gridOutline, gridSharp,
@@ -31,9 +32,8 @@ interface MenuItem {
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, IonIcon],
+  imports: [RouterLink, RouterLinkActive, IonIcon, LucideIconComponent],
 })
 export class SidebarComponent {
   collapsed = signal(false);

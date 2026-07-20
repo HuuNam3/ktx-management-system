@@ -4,14 +4,13 @@ import { StatisticCardComponent } from '../../components/statistic-card/statisti
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { LogService } from '../../services/log.service';
 import { LogEntry, LogStats, LogType } from '../../models/log.model';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-log',
   templateUrl: './log.page.html',
-  styleUrls: ['./log.page.scss'],
   standalone: true,
-  imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, SearchInputComponent],
+  imports: [DecimalPipe, NgClass, PageHeaderComponent, StatisticCardComponent, SearchInputComponent],
 })
 export class LogPage implements OnInit {
   stats!: LogStats;

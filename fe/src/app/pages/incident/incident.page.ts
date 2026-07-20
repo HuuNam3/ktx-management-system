@@ -9,7 +9,6 @@ import { IncidentStats, Incident } from '../../models/incident.model';
 @Component({
   selector: 'app-incident',
   templateUrl: './incident.page.html',
-  styleUrls: ['./incident.page.scss'],
   standalone: true,
   imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, LucideIconComponent],
 })

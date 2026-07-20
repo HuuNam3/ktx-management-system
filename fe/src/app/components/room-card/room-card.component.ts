@@ -5,7 +5,6 @@ import { LucideIconComponent } from '../lucide-icon/lucide-icon.component';
 @Component({
   selector: 'app-room-card',
   templateUrl: './room-card.component.html',
-  styleUrls: ['./room-card.component.scss'],
   standalone: true,
   imports: [LucideIconComponent],
 })

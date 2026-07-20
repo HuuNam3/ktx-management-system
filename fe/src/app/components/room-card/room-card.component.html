@@ -1,16 +1,35 @@
-<div class="room-card" [class]="'status-' + room().status">
-  <div class="room-top">
-    <span class="room-code">{{ room().code }}</span>
-    <span class="room-icon"><app-lucide-icon [name]="statusIcon" [size]="22" /></span>
+<div class="bg-card-bg rounded-[20px] p-5 border border-border flex flex-col gap-2 transition duration-200 hover:-translate-y-[3px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+     [class.border-l-4]="true"
+     [class.border-l-success]="room().status === 'empty'"
+     [class.border-l-primary]="room().status === 'partial'"
+     [class.border-l-danger]="room().status === 'full'"
+     [class.border-l-warning]="room().status === 'maintenance'">
+  <div class="flex justify-between items-center">
+    <span class="text-2xl font-bold text-text-primary">{{ room().code }}</span>
+    <span class="text-[22px]"
+          [class.text-success]="room().status === 'empty'"
+          [class.text-primary]="room().status === 'partial'"
+          [class.text-danger]="room().status === 'full'"
+          [class.text-warning]="room().status === 'maintenance'">
+      <app-lucide-icon [name]="statusIcon" [size]="22" />
+    </span>
   </div>
-  <div class="room-type">{{ room().type }}</div>
-  <div class="room-occupancy">
+  <div class="text-sm text-text-secondary">{{ room().type }}</div>
+  <div class="text-[28px] font-bold text-text-primary">
     <span>{{ room().current }}</span>
-    <span class="separator">/</span>
+    <span class="text-border mx-[2px]">/</span>
     <span>{{ room().max }}</span>
-    <span class="label">người</span>
+    <span class="text-[13px] font-normal text-text-secondary ml-1">người</span>
   </div>
-  <div class="room-status" [class]="'status-' + room().status">
+  <div class="text-xs font-semibold px-3 py-1 rounded-full self-start"
+       [class.bg-green-50]="room().status === 'empty'"
+       [class.text-success]="room().status === 'empty'"
+       [class.bg-primary-light]="room().status === 'partial'"
+       [class.text-primary]="room().status === 'partial'"
+       [class.bg-red-50]="room().status === 'full'"
+       [class.text-danger]="room().status === 'full'"
+       [class.bg-amber-50]="room().status === 'maintenance'"
+       [class.text-warning]="room().status === 'maintenance'">
     {{ statusLabel }}
   </div>
 </div>

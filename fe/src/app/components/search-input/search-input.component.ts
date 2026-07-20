@@ -6,7 +6,6 @@ import { searchOutline, searchSharp } from 'ionicons/icons';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
-  styleUrls: ['./search-input.component.scss'],
   standalone: true,
   imports: [IonIcon],
 })
