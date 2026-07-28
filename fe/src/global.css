@@ -10,7 +10,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 :root {
-  --sidebar-width: 320px;
+  --sidebar-width: 260px;
   --topbar-height: 72px;
   --radius: 20px;
 }

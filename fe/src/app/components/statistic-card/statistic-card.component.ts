@@ -13,6 +13,8 @@ export class StatisticCardComponent {
   icon = input<string>('');
   lucideIcon = input<string>('');
   subtitle = input<string>('');
+  subtitleIcon = input<string>('');
+  subtitleIconColor = input<string>('currentColor');
   color = input<string>('var(--primary)');
   bgColor = input<string>('var(--primary-light)');
 }

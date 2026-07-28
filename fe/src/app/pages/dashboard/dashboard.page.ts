@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
 import { ChartCardComponent } from '../../components/chart-card/chart-card.component';
@@ -13,7 +12,6 @@ import { DashboardStats, RevenueEntry, RoomDistribution, TimelineActivity, Alert
   templateUrl: './dashboard.page.html',
   standalone: true,
   imports: [
-    DecimalPipe,
     PageHeaderComponent,
     StatisticCardComponent,
     ChartCardComponent,

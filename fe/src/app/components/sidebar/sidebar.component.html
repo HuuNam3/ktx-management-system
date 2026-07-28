@@ -4,35 +4,35 @@
 </style>
 <div
   class="fixed left-0 top-0 h-screen bg-card-bg border-r border-border flex flex-col overflow-hidden"
-  [style.width.px]="collapsed() ? 80 : 320"
+  [style.width.px]="collapsed() ? 60 : 260"
   [style.transition]="'width 0.3s ease'"
   style="z-index: 100"
 >
   @if (!collapsed()) {
-    <div class="flex items-center justify-between border-b border-border flex-shrink-0 px-5 py-6">
+    <div class="flex items-center justify-between border-b border-border flex-shrink-0 px-5 h-[72px]">
       <div class="flex items-center gap-3">
-        <div class="w-[42px] h-[42px] bg-primary text-white rounded-xl flex items-center justify-center flex-shrink-0">
-          <app-lucide-icon name="bed" [size]="24" color="white" />
+        <div class="w-[36px] h-[36px] bg-primary text-white rounded-xl flex items-center justify-center flex-shrink-0">
+          <app-lucide-icon name="bed" [size]="20" color="white" />
         </div>
-        <div>
-          <h2 class="text-lg font-bold text-text-primary leading-tight m-0">KTX Tây Đô</h2>
-          <span class="text-xs text-text-secondary">Quản lý ký túc xá</span>
+        <div class="flex flex-col justify-center -mt-px">
+          <h2 class="text-lg font-black text-text-primary leading-tight m-0">KTX Tây Đô</h2>
+          <span class="text-xs text-text-secondary leading-tight">Quản lý ký túc xá</span>
         </div>
       </div>
       <button
-        class="bg-transparent border-none w-8 h-8 flex items-center justify-center cursor-pointer text-text-secondary flex-shrink-0 rounded-[10px] hover:bg-bg"
+        class="bg-transparent border-none w-8 h-8 flex items-center justify-center cursor-pointer text-text-primary flex-shrink-0 rounded-[10px] hover:bg-bg"
         (click)="toggleCollapse()"
       >
         <ion-icon name="close-outline" class="text-base"></ion-icon>
       </button>
     </div>
   } @else {
-    <div class="flex justify-center border-b border-border flex-shrink-0 py-3">
+    <div class="flex justify-center items-center border-b border-border flex-shrink-0 h-[72px]">
       <button
-        class="bg-transparent border-none w-8 h-8 flex items-center justify-center cursor-pointer text-text-secondary rounded-[10px] hover:bg-bg"
+        class="bg-transparent border-none w-8 h-8 flex items-center justify-center cursor-pointer text-text-primary rounded-[10px] hover:bg-bg"
         (click)="toggleCollapse()"
       >
-        <ion-icon name="list-outline" class="text-base"></ion-icon>
+        <ion-icon name="menu-outline" class="text-xl"></ion-icon>
       </button>
     </div>
   }
@@ -40,16 +40,16 @@
   <nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-1">
     @for (item of menuItems; track item.label) {
       <a
-        class="group flex items-center gap-3 px-4 py-3 rounded-[10px] no-underline cursor-pointer transition-all duration-200 relative whitespace-nowrap text-text-secondary hover:bg-bg hover:text-text-primary [&.active]:bg-primary-light [&.active]:border [&.active]:border-primary-border [&.active]:text-primary"
+        class="group flex items-center gap-3 px-4 py-3 rounded-[10px] no-underline cursor-pointer transition-all duration-200 relative whitespace-nowrap text-text-primary hover:bg-bg hover:text-text-primary [&.active]:bg-primary-light [&.active]:border [&.active]:border-primary-border [&.active]:text-primary"
         [routerLink]="item.route"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: item.route === '/reception' }"
       >
         <div class="flex items-center justify-center flex-shrink-0">
-          <ion-icon [name]="item.icon + '-outline'" class="text-xl text-text-secondary group-[.active]:text-primary"></ion-icon>
+          <app-lucide-icon [name]="item.icon" [size]="20" class="text-text-primary group-[.active]:text-primary"></app-lucide-icon>
         </div>
         @if (!collapsed()) {
-          <span class="text-[15px] font-medium group-[.active]:font-semibold">{{ item.label }}</span>
+          <span class="text-[15px] font-medium text-text-primary group-[.active]:text-primary group-[.active]:font-semibold">{{ item.label }}</span>
         }
         @if (!collapsed() && item.badge) {
           <span class="ml-auto bg-danger text-white text-xs font-semibold px-2 py-0.5 rounded-full min-w-[22px] text-center">{{ item.badge }}</span>

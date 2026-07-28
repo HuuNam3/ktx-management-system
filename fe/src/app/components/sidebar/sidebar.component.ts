@@ -1,25 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon } from '@ionic/angular/standalone';
 import { LucideIconComponent } from '../lucide-icon/lucide-icon.component';
 import { addIcons } from 'ionicons';
 import {
-  gridOutline, gridSharp,
-  clipboardOutline, clipboardSharp,
-  bedOutline, bedSharp,
-  bookOutline, bookSharp,
-  peopleOutline, peopleSharp,
-  ticketOutline, ticketSharp,
-  walletOutline, walletSharp,
-  flashOutline, flashSharp,
-  folderOutline, folderSharp,
-  printOutline, printSharp,
-  checkboxOutline, checkboxSharp,
-  alertCircleOutline, alertCircleSharp,
-  hammerOutline, hammerSharp,
-  chatbubbleOutline, chatbubbleSharp,
   closeOutline, closeSharp,
-  listOutline, listSharp
+  menuOutline, menuSharp
 } from 'ionicons/icons';
 
 interface MenuItem {
@@ -39,44 +25,35 @@ export class SidebarComponent {
   collapsed = signal(false);
 
   menuItems: MenuItem[] = [
-    { label: 'Tổng quan', route: '/tong-quan', icon: 'grid' },
-    { label: 'Lễ tân', route: '/reception', icon: 'clipboard' },
+    { label: 'Tổng quan', route: '/tong-quan', icon: 'layout-dashboard' },
+    { label: 'Lễ tân', route: '/reception', icon: 'user-round-check' },
     { label: 'Quản lý phòng', route: '/phong', icon: 'bed' },
-    { label: 'Nhật ký ra vào', route: '/nhat-ky', icon: 'book' },
-    { label: 'Quản lý khách', route: '/khach', icon: 'people' },
+    { label: 'Nhật ký ra vào', route: '/nhat-ky', icon: 'notepad-text' },
+    { label: 'Quản lý khách', route: '/khach', icon: 'users-round' },
     { label: 'Quản lý vé', route: '/ve', icon: 'ticket' },
-    { label: 'Thanh toán', route: '/thanh-toan', icon: 'wallet' },
-    { label: 'Điện nước', route: '/dien-nuoc', icon: 'flash' },
-    { label: 'Hồ sơ', route: '/ho-so', icon: 'folder', badge: 12 },
-    { label: 'In giấy tờ', route: '/in-giay-to', icon: 'print' },
-    { label: 'Checklist', route: '/checklist', icon: 'checkbox' },
-    { label: 'Sự cố', route: '/su-co', icon: 'alert-circle' },
-    { label: 'Nhà thầu/Thợ', route: '/nha-thau', icon: 'hammer' },
-    { label: 'Phản hồi', route: '/phan-hoi', icon: 'chatbubble', badge: 3 },
+    { label: 'Thanh toán', route: '/thanh-toan', icon: 'panel-top' },
+    { label: 'Điện nước', route: '/dien-nuoc', icon: 'zap' },
+    { label: 'Hồ sơ', route: '/ho-so', icon: 'file-text', badge: 12 },
+    { label: 'In giấy tờ', route: '/in-giay-to', icon: 'file-check' },
+    { label: 'Checklist', route: '/checklist', icon: 'square-check-big' },
+    { label: 'Sự cố', route: '/su-co', icon: 'triangle-alert' },
+    { label: 'Nhà thầu/Thợ', route: '/nha-thau', icon: 'wrench' },
+    { label: 'Phản hồi', route: '/phan-hoi', icon: 'message-square', badge: 3 },
   ];
 
   toggleCollapse() {
     this.collapsed.update(v => !v);
+    document.documentElement.style.setProperty('--sidebar-width', `${this.collapsed() ? 60 : 260}px`);
   }
+
+  private sidebarEffect = effect(() => {
+    document.documentElement.style.setProperty('--sidebar-width', `${this.collapsed() ? 60 : 260}px`);
+  });
 
   constructor() {
     addIcons({
-      gridOutline, gridSharp,
-      clipboardOutline, clipboardSharp,
-      bedOutline, bedSharp,
-      bookOutline, bookSharp,
-      peopleOutline, peopleSharp,
-      ticketOutline, ticketSharp,
-      walletOutline, walletSharp,
-      flashOutline, flashSharp,
-      folderOutline, folderSharp,
-      printOutline, printSharp,
-      checkboxOutline, checkboxSharp,
-      alertCircleOutline, alertCircleSharp,
-      hammerOutline, hammerSharp,
-      chatbubbleOutline, chatbubbleSharp,
       closeOutline, closeSharp,
-      listOutline, listSharp
+      menuOutline, menuSharp
     });
   }
 }

@@ -1,16 +1,21 @@
-<div class="bg-card-bg rounded-[20px] p-7 border border-border flex items-center justify-between h-full min-h-[150px] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg" [style.--stat-color]="color()" [style.--stat-bg]="bgColor()">
+<div class="bg-card-bg rounded-[20px] p-7 border border-border flex items-start justify-between h-full min-h-[150px] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg" [style.--stat-color]="color()" [style.--stat-bg]="bgColor()">
   <div class="flex flex-col gap-1.5">
-    <span class="text-[15px] text-text-secondary font-medium">{{ label() }}</span>
-    <span class="text-5xl font-bold text-text-primary leading-[1.1]">{{ value() }}</span>
+    <span class="text-sm text-gray-800 font-black">{{ label() }}</span>
+    <span class="text-3xl font-black text-text-primary leading-[1.1]">{{ value() }}</span>
     @if (subtitle()) {
-      <span class="text-sm text-text-secondary">{{ subtitle() }}</span>
+      <span class="text-sm text-text-secondary flex items-center gap-1">
+        @if (subtitleIcon()) {
+          <app-lucide-icon [name]="subtitleIcon()" [size]="14" [color]="subtitleIconColor()" />
+        }
+        {{ subtitle() }}
+      </span>
     }
   </div>
-  <div class="size-14 rounded-2xl bg-[var(--stat-bg)] flex items-center justify-center shrink-0">
+  <div class="size-12 rounded-xl bg-[var(--stat-bg)] flex items-center justify-center shrink-0">
     @if (lucideIcon()) {
-      <app-lucide-icon [name]="lucideIcon()" [size]="28" [color]="color()" />
+      <app-lucide-icon [name]="lucideIcon()" [size]="24" [color]="color()" />
     } @else {
-      <span class="text-[28px] text-[var(--stat-color)]">{{ icon() }}</span>
+      <span class="text-[24px] text-[var(--stat-color)]">{{ icon() }}</span>
     }
   </div>
 </div>

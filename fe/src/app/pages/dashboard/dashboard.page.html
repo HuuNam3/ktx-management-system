@@ -7,23 +7,21 @@
     [showQR]="false"
   />
 
-  @if (stats) {
-    <div class="mb-6 grid gap-4 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
-      <app-statistic-card label="Tổng số khách" [value]="stats.totalGuests | number" lucideIcon="users" subtitle="24 check-in hôm nay" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Số phòng trống" [value]="stats.emptyRooms | number" lucideIcon="home" subtitle="Trên tổng số 120 phòng" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Doanh thu" [value]="formatCurrency(stats.revenue) + 'đ'" lucideIcon="dollar-sign" subtitle="Tháng 7/2026" color="#F59E0B" bgColor="#FFFBEB" />
-      <app-statistic-card label="Cảnh báo" [value]="stats.alerts | number" lucideIcon="bell" subtitle="Cần xử lý" color="#DC2626" bgColor="#FEF2F2" />
+  <div class="mb-6 grid gap-4 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
+      <app-statistic-card label="Tổng số khách" value="342" lucideIcon="users" subtitle="+12 hôm nay" subtitleIcon="trending-up" subtitleIconColor="#16A34A" color="#2563EB" bgColor="#EFF6FF" />
+      <app-statistic-card label="Số phòng trống" value="28/120" lucideIcon="bed" subtitle="23% còn trống" subtitleIcon="trending-down" subtitleIconColor="#DC2626" color="#16A34A" bgColor="#F0FDF4" />
+      <app-statistic-card label="Doanh thu hôm nay" value="12.5M" lucideIcon="dollar-sign" subtitle="+8.2% so với hôm qua" subtitleIcon="trending-up" subtitleIconColor="#16A34A" color="#F59E0B" bgColor="#FFFBEB" />
+      <app-statistic-card label="Cảnh báo" value="8" lucideIcon="triangle-alert" subtitle="3 chưa đóng tiền" subtitleIcon="trending-up" subtitleIconColor="#16A34A" color="#DC2626" bgColor="#FEF2F2" />
     </div>
-  }
 
   <div class="mb-6 grid gap-6 grid-cols-[1.6fr_1fr] max-[1200px]:grid-cols-1">
     <div class="col-chart-main">
       <app-chart-card
         title="Doanh thu 7 ngày"
+        description="Biểu đồ doanh thu"
         type="line"
         [data]="revenueData"
         [labels]="revenueLabels"
-        [showExport]="true"
       />
     </div>
     <div class="col-chart-side">
