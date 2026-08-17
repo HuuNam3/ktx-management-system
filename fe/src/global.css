@@ -35,3 +35,25 @@ ion-content {
 * {
   box-sizing: border-box;
 }
+
+.app-action-button {
+  min-height: 56px !important;
+  padding: 14px 28px !important;
+  border-radius: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  white-space: nowrap !important;
+}
+
+.app-action-button-sm {
+  min-height: 40px !important;
+  padding: 10px 16px !important;
+  border-radius: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  white-space: nowrap !important;
+}

@@ -21,7 +21,7 @@
               <td><span class="rounded-md px-3 py-1 text-sm font-bold" [class]="typeClass(row.type)">{{ row.type }}</span></td><td>{{ row.content }}</td><td>{{ row.date }}</td>
               <td><span class="rounded-lg px-3 py-1 text-sm font-bold" [class.bg-rose-600]="row.level === 'Cao'" [class.text-white]="row.level === 'Cao'" [class.bg-gray-100]="row.level !== 'Cao'">{{ row.level }}</span></td>
               <td><span class="rounded-lg px-3 py-1 text-sm font-bold" [class.bg-[#020214]]="row.status === 'Đã xử lý'" [class.text-white]="row.status === 'Đã xử lý'" [class.bg-gray-100]="row.status !== 'Đã xử lý'">{{ row.status }}</span></td>
-              <td>@if (row.status === 'Chờ xử lý') { <button class="rounded-xl border border-gray-200 bg-white px-4 py-2 font-bold" (click)="resolve(row)">Xử lý</button> }</td>
+              <td>@if (row.status === 'Chờ xử lý') { <button class="app-action-button-sm border border-gray-200 bg-white font-bold" (click)="resolve(row)">Xử lý</button> }</td>
             </tr>
           }
         </tbody>

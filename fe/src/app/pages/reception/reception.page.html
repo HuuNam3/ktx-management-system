@@ -4,16 +4,16 @@
       <h1 class="demo-title">Quầy Lễ Tân</h1>
       <p class="demo-subtitle">Quản lý check-in/out nhanh chóng</p>
     </div>
-    <div class="flex gap-4 pt-2">
-      <button class="h-12 px-5 rounded-lg border-0 bg-[#00A63E] text-white text-[16px] font-black flex items-center gap-3 cursor-pointer hover:bg-[#008F35]" (click)="onCheckin()">
+    <div class="flex flex-wrap justify-end gap-4 pt-2">
+      <button class="app-action-button border-0 bg-[#00A63E] text-white text-[16px] font-black cursor-pointer transition-all duration-200 hover:bg-[#008F35] active:scale-95" (click)="onCheckin()">
         <app-lucide-icon name="user-plus" [size]="20" color="white" />
         CHECK-IN
       </button>
-      <button class="h-12 px-5 rounded-lg border-0 bg-[#DC143C] text-white text-[16px] font-black flex items-center gap-3 cursor-pointer hover:bg-[#BE123C]" (click)="onCheckout()">
+      <button class="app-action-button border-0 bg-[#DC143C] text-white text-[16px] font-black cursor-pointer transition-all duration-200 hover:bg-[#BE123C] active:scale-95" (click)="onCheckout()">
         <app-lucide-icon name="user-minus" [size]="20" color="white" />
         CHECK-OUT
       </button>
-      <button class="h-12 px-5 rounded-lg border-0 bg-primary text-white text-[16px] font-black flex items-center gap-3 cursor-pointer hover:bg-[#1D4ED8]" (click)="onQr()">
+      <button class="app-action-button border-0 bg-primary text-white text-[16px] font-black cursor-pointer transition-all duration-200 hover:bg-[#1D4ED8] active:scale-95" (click)="onQr()">
         <app-lucide-icon name="qr-code" [size]="20" color="white" />
         QUÉT QR
       </button>
@@ -47,9 +47,9 @@
               {{ guest.status === 'inside' ? 'Đang ở' : 'Bên ngoài' }}
             </span>
             <div class="flex gap-2">
-              <button class="rounded-lg border-0 bg-[#00A63E] px-3 py-2 text-sm font-black text-white disabled:opacity-40" [disabled]="guest.status === 'inside'" (click)="onCheckin(guest)">Check-in</button>
-              <button class="rounded-lg border-0 bg-[#DC143C] px-3 py-2 text-sm font-black text-white disabled:opacity-40" [disabled]="guest.status === 'outside'" (click)="onCheckout(guest)">Check-out</button>
-              <button class="rounded-lg border-0 bg-primary px-3 py-2 text-sm font-black text-white disabled:opacity-40" [disabled]="guest.status === 'inside'" (click)="onQr(guest)">QR</button>
+              <button class="app-action-button-sm border-0 bg-[#00A63E] text-sm font-black text-white disabled:opacity-40" [disabled]="guest.status === 'inside'" (click)="onCheckin(guest)">Check-in</button>
+              <button class="app-action-button-sm border-0 bg-[#DC143C] text-sm font-black text-white disabled:opacity-40" [disabled]="guest.status === 'outside'" (click)="onCheckout(guest)">Check-out</button>
+              <button class="app-action-button-sm border-0 bg-primary text-sm font-black text-white disabled:opacity-40" [disabled]="guest.status === 'inside'" (click)="onQr(guest)">QR</button>
             </div>
           </div>
         }

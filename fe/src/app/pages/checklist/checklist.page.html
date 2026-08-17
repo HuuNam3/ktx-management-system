@@ -37,7 +37,7 @@
   <div class="rounded-2xl border border-gray-200 bg-white p-[30px]">
     <h3 class="m-0 mb-7 text-xl font-bold">Ghi chú ca trực</h3>
     <textarea class="h-[76px] w-full resize-none rounded-xl border-0 bg-gray-100 p-4 text-base outline-none" placeholder="Ghi chú các sự việc phát sinh, vấn đề cần lưu ý..." [(ngModel)]="note"></textarea>
-    <button class="mt-5 rounded-xl border-0 bg-[#020214] px-5 py-3 font-bold text-white" (click)="saveNote()">Lưu ghi chú</button>
+    <button class="app-action-button mt-5 border-0 bg-[#020214] font-bold text-white" (click)="saveNote()">Lưu ghi chú</button>
   </div>
 
   @if (message) { <div class="fixed bottom-6 right-6 z-[300] rounded-xl bg-[#020214] px-5 py-3 text-sm font-bold text-white shadow-xl">{{ message }}</div> }

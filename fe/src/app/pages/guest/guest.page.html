@@ -111,11 +111,11 @@
         </div>
 
         <div class="mt-6 flex justify-end gap-3">
-          <button class="rounded-xl border border-gray-200 bg-white px-5 py-3 font-bold" (click)="closePanel()">Đóng</button>
+          <button class="app-action-button-sm border border-gray-200 bg-white font-bold" (click)="closePanel()">Đóng</button>
           @if (editMode) {
-            <button class="rounded-xl border-0 bg-[#020214] px-5 py-3 font-bold text-white" (click)="saveEdit()">Lưu</button>
+            <button class="app-action-button-sm border-0 bg-[#020214] font-bold text-white" (click)="saveEdit()">Lưu</button>
           } @else {
-            <button class="rounded-xl border-0 bg-[#020214] px-5 py-3 font-bold text-white" (click)="editMode = true">Sửa thông tin</button>
+            <button class="app-action-button-sm border-0 bg-[#020214] font-bold text-white" (click)="editMode = true">Sửa thông tin</button>
           }
         </div>
       </div>

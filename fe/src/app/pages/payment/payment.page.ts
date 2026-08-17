@@ -62,7 +62,31 @@ export class PaymentPage {
   }
 
   exportExcel() {
+    const rows = [
+      ['Khách hàng', 'SĐT', 'Phòng', 'Loại phí', 'Số tiền', 'Hạn đóng', 'Trạng thái'],
+      ...this.filteredRows.map(row => [
+        row.customer,
+        row.phone,
+        row.room,
+        row.fees.join(' + '),
+        row.amount,
+        row.due,
+        this.statusLabel(row.status),
+      ]),
+    ];
+    this.downloadCsv(`thanh-toan-${new Date().toISOString().slice(0, 10)}.csv`, rows);
     this.show('Đã xuất danh sách thanh toán.');
+  }
+
+  private downloadCsv(filename: string, rows: string[][]) {
+    const csv = rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(url);
   }
 
   show(text: string) {

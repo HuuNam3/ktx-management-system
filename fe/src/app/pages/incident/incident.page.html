@@ -1,6 +1,6 @@
 <div class="page">
   <app-page-header title="Sự cố & Bồi thường" description="Quản lý sự cố và chi phí bồi thường" [showCheckin]="false" [showCheckout]="false" [showQR]="false">
-    <button class="inline-flex items-center gap-2 rounded-xl border-0 bg-[#020214] px-5 py-3 font-bold text-white" (click)="report()"><app-lucide-icon name="plus" [size]="18" color="white" /> Báo cáo sự cố</button>
+    <button class="app-action-button border-0 bg-[#020214] font-bold text-white" (click)="report()"><app-lucide-icon name="plus" [size]="18" color="white" /> Báo cáo sự cố</button>
   </app-page-header>
 
   <div class="mb-[30px] grid grid-cols-4 gap-5 max-xl:grid-cols-2 max-md:grid-cols-1">
@@ -21,7 +21,7 @@
             <tr class="border-b border-gray-200 last:border-0">
               <td class="py-4"><span class="rounded-lg border border-gray-200 px-3 py-1 text-sm font-bold">{{ row.room }}</span></td><td class="font-bold">{{ row.type }}</td><td>{{ row.desc }}</td><td>{{ row.reporter }}</td><td>{{ row.date }}</td><td class="font-bold text-red-600">{{ row.cost }}</td>
               <td><span class="rounded-lg px-3 py-1 text-sm font-bold" [class.bg-rose-600]="row.status === 'Chưa xử lý'" [class.text-white]="row.status === 'Chưa xử lý' || row.status === 'Đã xử lý'" [class.bg-[#020214]]="row.status === 'Đã xử lý'">{{ row.status }}</span></td>
-              <td>@if (row.status === 'Chưa xử lý') { <button class="rounded-xl border border-gray-200 bg-white px-4 py-2 font-bold" (click)="resolve(row)">Xử lý</button> }</td>
+              <td>@if (row.status === 'Chưa xử lý') { <button class="app-action-button-sm border border-gray-200 bg-white font-bold" (click)="resolve(row)">Xử lý</button> }</td>
             </tr>
           }
         </tbody>

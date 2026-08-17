@@ -27,6 +27,23 @@ export class DashboardPage {
   message = '';
 
   exportReport() {
+    const rows = [
+      ['Nhóm', 'Nội dung', 'Giá trị'],
+      ['Thống kê', 'Tổng số khách', '342'],
+      ['Thống kê', 'Số phòng trống', '28/120'],
+      ['Thống kê', 'Doanh thu hôm nay', '12.5M'],
+      ['Thống kê', 'Cảnh báo', '8'],
+      ...this.activities.map(item => ['Hoạt động', item.type, `${item.time} - ${item.text}`]),
+      ...this.alerts.map(item => ['Cảnh báo', item.title, item.time]),
+    ];
+    const csv = rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `bao-cao-tong-quan-${new Date().toISOString().slice(0, 10)}.csv`;
+    anchor.click();
+    URL.revokeObjectURL(url);
     this.message = 'Đã xuất báo cáo tổng quan.';
     window.setTimeout(() => {
       if (this.message) this.message = '';

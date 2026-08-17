@@ -1,6 +1,6 @@
 <div class="page">
   <app-page-header title="Quản lý Nhà thầu/Thợ" description="Check-in/out nhà thầu và theo dõi công việc" [showCheckin]="false" [showCheckout]="false" [showQR]="false">
-    <button class="inline-flex items-center gap-2 rounded-xl border-0 bg-[#020214] px-5 py-3 font-bold text-white" (click)="checkin()"><app-lucide-icon name="plus" [size]="18" color="white" /> Check-in thợ</button>
+    <button class="app-action-button border-0 bg-[#020214] font-bold text-white" (click)="checkin()"><app-lucide-icon name="plus" [size]="18" color="white" /> Check-in thợ</button>
   </app-page-header>
 
   <div class="mb-[30px] grid grid-cols-3 gap-5 max-md:grid-cols-1">
@@ -21,7 +21,7 @@
             <tr class="border-b border-gray-200 last:border-0">
               <td class="py-4 font-bold">{{ row.name }}</td><td>{{ row.unit }}</td><td>{{ row.job }}</td><td><span class="rounded-lg border border-gray-200 px-3 py-1 text-sm font-bold">{{ row.location }}</span></td><td>{{ row.in }}</td><td>{{ row.out }}</td>
               <td><span class="rounded-lg px-3 py-1 text-sm font-bold" [class.bg-[#020214]]="row.status === 'Đang làm'" [class.text-white]="row.status === 'Đang làm'" [class.bg-gray-100]="row.status !== 'Đang làm'">{{ row.status }}</span></td>
-              <td>@if (row.status === 'Đang làm') { <button class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 font-bold" (click)="checkout(row)"><app-lucide-icon name="user-x" [size]="18" /> Check-out</button> }</td>
+              <td>@if (row.status === 'Đang làm') { <button class="app-action-button-sm border border-gray-200 bg-white font-bold" (click)="checkout(row)"><app-lucide-icon name="user-x" [size]="18" /> Check-out</button> }</td>
             </tr>
           }
         </tbody>

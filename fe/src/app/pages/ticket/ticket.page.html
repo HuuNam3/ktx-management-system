@@ -1,9 +1,9 @@
 <div class="page">
   <app-page-header title="Quản lý Vé" description="Vé ăn, vé xe và dịch vụ khác" [showCheckin]="false" [showCheckout]="false" [showQR]="false">
-    <button class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-base font-bold" (click)="show('Đã quét QR')">
+    <button class="app-action-button border border-gray-200 bg-white text-base font-bold transition-all duration-200 hover:bg-gray-50 active:scale-95" (click)="openQr()">
       <app-lucide-icon name="qr-code" [size]="18" /> Quét QR
     </button>
-    <button class="inline-flex items-center gap-2 rounded-xl border-0 bg-[#020214] px-5 py-3 text-base font-bold text-white" (click)="show('Đã mở form mua vé')">
+    <button class="app-action-button border-0 bg-[#020214] text-base font-bold text-white transition-all duration-200 hover:bg-[#101026] active:scale-95" (click)="openBuy()">
       <app-lucide-icon name="plus" [size]="18" color="white" /> Mua vé mới
     </button>
   </app-page-header>
@@ -72,5 +72,55 @@
 
   @if (message) {
     <div class="fixed bottom-6 right-6 z-[300] rounded-xl bg-[#020214] px-5 py-3 text-sm font-bold text-white shadow-xl">{{ message }}</div>
+  }
+
+  @if (modalMode) {
+    <div class="fixed inset-0 z-[280] flex items-center justify-center bg-slate-900/40 p-6" (click)="closeModal()">
+      <div class="w-full max-w-[520px] rounded-2xl border border-gray-200 bg-white p-6 shadow-2xl" (click)="$event.stopPropagation()">
+        <div class="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <h3 class="m-0 text-2xl font-black">{{ modalMode === 'qr' ? 'Quét QR sử dụng vé' : 'Mua vé mới' }}</h3>
+            <p class="mt-2 text-slate-500">{{ modalMode === 'qr' ? 'Ghi nhận lượt sử dụng vé ăn hoặc vé xe' : 'Tạo giao dịch vé ăn, vé xe cho khách/sinh viên' }}</p>
+          </div>
+          <button class="grid size-9 place-items-center rounded-lg border border-gray-200 bg-white" (click)="closeModal()">
+            <app-lucide-icon name="x" [size]="18" />
+          </button>
+        </div>
+
+        <div class="grid gap-4">
+          <label class="grid gap-2 text-sm font-bold">Loại vé
+            <select class="h-11 rounded-xl border border-gray-200 bg-gray-50 px-4 font-normal outline-none" [(ngModel)]="ticketForm.kind">
+              <option value="meal">Vé ăn</option>
+              <option value="vehicle">Vé xe</option>
+            </select>
+          </label>
+          <label class="grid gap-2 text-sm font-bold">Họ tên
+            <input class="h-11 rounded-xl border border-gray-200 bg-gray-50 px-4 font-normal outline-none" [(ngModel)]="ticketForm.name" />
+          </label>
+          <label class="grid gap-2 text-sm font-bold">Gói/Dịch vụ
+            <input class="h-11 rounded-xl border border-gray-200 bg-gray-50 px-4 font-normal outline-none" [(ngModel)]="ticketForm.packageName" />
+          </label>
+          @if (ticketForm.kind === 'meal') {
+            <label class="grid gap-2 text-sm font-bold">Bữa ăn
+              <select class="h-11 rounded-xl border border-gray-200 bg-gray-50 px-4 font-normal outline-none" [(ngModel)]="ticketForm.meal">
+                <option>Bữa sáng</option>
+                <option>Bữa trưa</option>
+                <option>Bữa tối</option>
+              </select>
+            </label>
+          }
+          <label class="grid gap-2 text-sm font-bold">Số tiền
+            <input type="number" class="h-11 rounded-xl border border-gray-200 bg-gray-50 px-4 font-normal outline-none" [(ngModel)]="ticketForm.amount" [disabled]="modalMode === 'qr'" />
+          </label>
+        </div>
+
+        <div class="mt-6 flex justify-end gap-3">
+          <button class="app-action-button-sm border border-gray-200 bg-white font-bold" (click)="closeModal()">Hủy</button>
+          <button class="app-action-button-sm border-0 bg-[#020214] font-bold text-white" (click)="confirmTicket()">
+            {{ modalMode === 'qr' ? 'Ghi nhận QR' : 'Lưu giao dịch' }}
+          </button>
+        </div>
+      </div>
+    </div>
   }
 </div>

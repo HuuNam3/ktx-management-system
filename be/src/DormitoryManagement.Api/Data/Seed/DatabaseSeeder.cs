@@ -22,7 +22,7 @@ public static class DatabaseSeeder
 
         if (await db.Rooms.AnyAsync(room => room.Code == "A201"))
         {
-            logger.LogInformation("Demo data already exists. Login: admin / Admin@123");
+            logger.LogInformation("Dữ liệu mẫu đã tồn tại. Login: admin / admin");
             return;
         }
 
@@ -143,7 +143,7 @@ public static class DatabaseSeeder
         db.Notifications.Add(notification);
         await db.SaveChangesAsync();
 
-        logger.LogInformation("Database seeded with KTX Tây Đô demo data. Login: admin / Admin@123");
+        logger.LogInformation("Database seeded with KTX Tây Đô sample data. Login: admin / admin");
     }
 
     private static Room Room(int buildingId, int typeId, decimal rent, string code, int floor, RoomStatus status, int occupied)

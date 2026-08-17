@@ -50,7 +50,35 @@ export class ElectricPage {
   }
 
   exportReport() {
+    const rows = [
+      ['Phòng', 'Điện cũ', 'Điện mới', 'Tiêu thụ điện', 'Tiền điện', 'Nước cũ', 'Nước mới', 'Tiêu thụ nước', 'Tiền nước', 'Tổng', 'Trạng thái'],
+      ...this.rows.map(row => [
+        row.room,
+        String(row.eOld),
+        String(row.eNew),
+        row.eUse,
+        row.eCost,
+        String(row.wOld),
+        String(row.wNew),
+        row.wUse,
+        row.wCost,
+        row.total,
+        row.paid ? 'Đã thu' : 'Chưa thu',
+      ]),
+    ];
+    this.downloadCsv(`dien-nuoc-${new Date().toISOString().slice(0, 10)}.csv`, rows);
     this.show('Đã xuất báo cáo điện nước.');
+  }
+
+  private downloadCsv(filename: string, rows: string[][]) {
+    const csv = rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    URL.revokeObjectURL(url);
   }
 
   show(text: string) {
