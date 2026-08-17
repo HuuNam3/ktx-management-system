@@ -17,7 +17,7 @@ export class RoomCardComponent {
   }
 
   get statusIcon(): string {
-    const map: Record<string, string> = { empty: 'check', partial: 'minus', full: 'x', maintenance: 'settings' };
+    const map: Record<string, string> = { empty: 'bed', partial: 'users', full: 'users', maintenance: 'wrench' };
     return map[this.room().status] || '';
   }
 }

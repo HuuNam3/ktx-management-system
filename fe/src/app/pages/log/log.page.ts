@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { PageHeaderComponent } from '../../components/page-header/page-header.component';
-import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
-import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { LogService } from '../../services/log.service';
 import { LogEntry, LogStats, LogType } from '../../models/log.model';
-import { DecimalPipe, NgClass } from '@angular/common';
+import { LucideIconComponent } from '../../components/lucide-icon/lucide-icon.component';
 
 @Component({
   selector: 'app-log',
   templateUrl: './log.page.html',
   standalone: true,
-  imports: [DecimalPipe, NgClass, PageHeaderComponent, StatisticCardComponent, SearchInputComponent],
+  imports: [LucideIconComponent],
 })
 export class LogPage implements OnInit {
   stats!: LogStats;
   entries: LogEntry[] = [];
   filterType: LogType = 'all';
+  searchTerm = '';
+  message = '';
 
   constructor(private logService: LogService) {}
 
@@ -25,19 +24,12 @@ export class LogPage implements OnInit {
   }
 
   loadEntries() {
-    this.logService.getEntries(this.filterType).subscribe(e => this.entries = e);
+    this.logService.getEntries(this.filterType, this.searchTerm).subscribe(e => this.entries = e);
   }
 
   onSearch(val: string) {
-    this.logService.getEntries(this.filterType).subscribe(e => {
-      if (!val.trim()) { this.entries = e; return; }
-      const q = val.toLowerCase();
-      this.entries = e.filter(x =>
-        x.fullName.toLowerCase().includes(q) ||
-        x.cccd.includes(q) ||
-        x.room.toLowerCase().includes(q)
-      );
-    });
+    this.searchTerm = val;
+    this.loadEntries();
   }
 
   setFilter(type: LogType) {
@@ -45,8 +37,24 @@ export class LogPage implements OnInit {
     this.loadEntries();
   }
 
+  onFilterSelect(value: string) {
+    this.setFilter(value as LogType);
+  }
+
+  exportReport() {
+    this.logService.exportCsv(this.filterType, this.searchTerm);
+    this.showMessage('Đã xuất báo cáo nhật ký.');
+  }
+
+  private showMessage(text: string) {
+    this.message = text;
+    window.setTimeout(() => {
+      if (this.message === text) this.message = '';
+    }, 3000);
+  }
+
   getTypeBadge(type: string): string {
-    const map: Record<string, string> = { checkin: 'badge-ci', checkout: 'badge-co', qr: 'badge-qr' };
+    const map: Record<string, string> = { checkin: 'bg-[#020617] text-white', checkout: 'bg-[#DC143C] text-white', qr: 'bg-purple-100 text-purple-700' };
     return map[type] || '';
   }
 

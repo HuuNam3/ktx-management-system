@@ -1,39 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
-import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
 import { LucideIconComponent } from '../../components/lucide-icon/lucide-icon.component';
-import { ElectricService } from '../../services/electric.service';
-import { ElectricWaterStats, ElectricWaterRecord } from '../../models/electric.model';
 
 @Component({
   selector: 'app-electric',
   templateUrl: './electric.page.html',
   standalone: true,
-  imports: [PageHeaderComponent, StatisticCardComponent, LucideIconComponent],
+  imports: [PageHeaderComponent, LucideIconComponent],
 })
-export class ElectricPage implements OnInit {
-  stats!: ElectricWaterStats;
-  records: ElectricWaterRecord[] = [];
+export class ElectricPage {
+  message = '';
 
-  constructor(private electricService: ElectricService) {}
+  stats = [
+    { label: 'Tổng tiền điện T3', value: '28.5M', icon: 'zap', color: '#B45309', bg: '#FEFCE8', border: '#FDE047' },
+    { label: 'Tổng tiền nước T3', value: '12.8M', icon: 'droplet', color: '#2563EB', bg: '#EFF6FF', border: '#BFDBFE' },
+    { label: 'Đã thu', value: '85%', icon: '', color: '#059669', bg: '#F0FDF4', border: '#BBF7D0' },
+    { label: 'Chưa thu', value: '15%', icon: '', color: '#DC2626', bg: '#FEF2F2', border: '#FECACA' },
+  ];
 
-  ngOnInit() {
-    this.electricService.getStats().subscribe(s => this.stats = s);
-    this.electricService.getRecords().subscribe(r => this.records = r);
+  rows = [
+    { room: 'A201', eOld: 1250, eNew: 1420, eUse: '170 kWh', eCost: '289.000đ', wOld: 45, wNew: 53, wUse: '8 m³', wCost: '120.000đ', total: '409.000đ', paid: false },
+    { room: 'A202', eOld: 1100, eNew: 1245, eUse: '145 kWh', eCost: '246.500đ', wOld: 38, wNew: 45, wUse: '7 m³', wCost: '105.000đ', total: '351.500đ', paid: false },
+    { room: 'B305', eOld: 980, eNew: 1180, eUse: '200 kWh', eCost: '340.000đ', wOld: 52, wNew: 62, wUse: '10 m³', wCost: '150.000đ', total: '490.000đ', paid: true },
+  ];
+
+  openInput() {
+    this.rows = [
+      {
+        room: 'C108',
+        eOld: 1320,
+        eNew: 1455,
+        eUse: '135 kWh',
+        eCost: '229.500đ',
+        wOld: 41,
+        wNew: 49,
+        wUse: '8 m³',
+        wCost: '120.000đ',
+        total: '349.500đ',
+        paid: false,
+      },
+      ...this.rows,
+    ];
+    this.show('Đã thêm chỉ số điện nước mới.');
   }
 
-  formatCurrency(v: number): string {
-    return v.toLocaleString('vi-VN') + 'đ';
+  collect(row: { room: string; paid: boolean }) {
+    row.paid = true;
+    this.show(`Đã thu tiền phòng ${row.room}`);
   }
 
-  getStatusLabel(s: string): string {
-    return s === 'da-thu' ? 'Đã thu' : 'Chưa thu';
+  exportReport() {
+    this.show('Đã xuất báo cáo điện nước.');
   }
 
-  getStatusBadge(s: string): string {
-    return s === 'da-thu' ? 'badge-success' : 'badge-pending';
+  show(text: string) {
+    this.message = text;
+    window.setTimeout(() => this.message = '', 1800);
   }
-
-  onInput() { console.log('Nhập chỉ số'); }
-  onExport() { console.log('Xuất báo cáo'); }
 }

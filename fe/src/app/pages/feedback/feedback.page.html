@@ -1,48 +1,32 @@
-<div class="p-8 max-w-[1400px]">
-  <app-page-header
-    title="Phản hồi & Khiếu nại"
-    description="Quản lý góp ý từ sinh viên"
-    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
-  />
+<div class="page">
+  <app-page-header title="Phản hồi & Khiếu nại" description="Quản lý ý kiến từ sinh viên" [showCheckin]="false" [showCheckout]="false" [showQR]="false" />
 
-  @if (stats) {
-    <div class="mb-6 grid gap-4 grid-cols-4">
-      <app-statistic-card label="Chờ xử lý" [value]="stats.pending | number" lucideIcon="hourglass" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
-      <app-statistic-card label="Đã xử lý" [value]="stats.resolved | number" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Ưu tiên cao" [value]="stats.highPriority | number" lucideIcon="circle-alert" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
-      <app-statistic-card label="Tổng phản hồi" [value]="stats.total | number" lucideIcon="bar-chart-3" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-    </div>
-  }
+  <div class="mb-[30px] grid grid-cols-4 gap-5 max-xl:grid-cols-2 max-md:grid-cols-1">
+    @for (stat of stats; track stat.label) {
+      <div class="min-h-[132px] rounded-2xl border px-[30px] py-8" [style.background]="stat.bg" [style.border-color]="stat.border">
+        <div class="flex items-center justify-between"><div><div class="text-base" [style.color]="stat.color">{{ stat.label }}</div><div class="mt-4 text-[34px] font-bold" [style.color]="stat.color">{{ stat.value }}</div></div>@if (stat.icon) { <app-lucide-icon [name]="stat.icon" [size]="42" [color]="stat.color" /> }</div>
+      </div>
+    }
+  </div>
 
-  <div class="mb-6 bg-card-bg rounded-[20px] border border-border overflow-x-auto">
-    <div class="grid items-center px-6 py-[14px] gap-3 min-w-[700px] text-xs font-semibold text-text-secondary uppercase tracking-wider border-b border-border grid-cols-[1fr_70px_90px_1fr_90px_90px_100px_80px]">
-      <span>Sinh viên</span>
-      <span>Phòng</span>
-      <span>Loại</span>
-      <span>Nội dung</span>
-      <span>Ngày gửi</span>
-      <span>Mức độ</span>
-      <span>Trạng thái</span>
-      <span>Thao tác</span>
-    </div>
-    <div class="table-bdy">
-      @for (f of feedbacks; track f.id) {
-        <div class="grid items-center px-6 py-[14px] gap-3 min-w-[700px] text-sm text-text-primary border-t border-[#F3F4F6] hover:bg-[#FAFBFC] grid-cols-[1fr_70px_90px_1fr_90px_90px_100px_80px]">
-          <span class="font-semibold">{{ f.student }}</span>
-          <span>{{ f.room }}</span>
-          <span>{{ f.type }}</span>
-          <span class="max-w-[220px] truncate">{{ f.content }}</span>
-          <span>{{ f.date }}</span>
-          <span><span class="badge" [class]="getPriorityBadge(f.priority)">{{ getPriorityLabel(f.priority) }}</span></span>
-          <span><span class="badge" [class]="getStatusBadge(f.status)">{{ getStatusLabel(f.status) }}</span></span>
-          <span>
-            <button class="size-9 rounded-[10px] border-none bg-transparent cursor-pointer inline-flex items-center justify-center text-lg transition-colors duration-200 hover:bg-bg" title="Xem"><app-lucide-icon name="eye" [size]="18" /></button>
-            @if (f.status === 'cho-xu-ly') {
-              <button class="size-9 rounded-[10px] border-none bg-transparent cursor-pointer inline-flex items-center justify-center text-lg transition-colors duration-200 hover:bg-bg" title="Xử lý"><app-lucide-icon name="pencil" [size]="18" /></button>
-            }
-          </span>
-        </div>
-      }
+  <div class="rounded-2xl border border-gray-200 bg-white p-[30px]">
+    <h3 class="m-0 mb-8 text-xl font-bold">Danh sách phản hồi</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[1100px] border-collapse text-left text-base">
+        <thead><tr class="border-b border-gray-200"><th class="py-4">Sinh viên</th><th>Phòng</th><th>Loại</th><th>Nội dung</th><th>Ngày gửi</th><th>Mức độ</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+        <tbody>
+          @for (row of rows; track row.student) {
+            <tr class="border-b border-gray-200 last:border-0">
+              <td class="py-4 font-bold">{{ row.student }}</td><td><span class="rounded-lg border border-gray-200 px-3 py-1 text-sm font-bold">{{ row.room }}</span></td>
+              <td><span class="rounded-md px-3 py-1 text-sm font-bold" [class]="typeClass(row.type)">{{ row.type }}</span></td><td>{{ row.content }}</td><td>{{ row.date }}</td>
+              <td><span class="rounded-lg px-3 py-1 text-sm font-bold" [class.bg-rose-600]="row.level === 'Cao'" [class.text-white]="row.level === 'Cao'" [class.bg-gray-100]="row.level !== 'Cao'">{{ row.level }}</span></td>
+              <td><span class="rounded-lg px-3 py-1 text-sm font-bold" [class.bg-[#020214]]="row.status === 'Đã xử lý'" [class.text-white]="row.status === 'Đã xử lý'" [class.bg-gray-100]="row.status !== 'Đã xử lý'">{{ row.status }}</span></td>
+              <td>@if (row.status === 'Chờ xử lý') { <button class="rounded-xl border border-gray-200 bg-white px-4 py-2 font-bold" (click)="resolve(row)">Xử lý</button> }</td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
+  @if (message) { <div class="fixed bottom-6 right-6 z-[300] rounded-xl bg-[#020214] px-5 py-3 text-sm font-bold text-white shadow-xl">{{ message }}</div> }
 </div>

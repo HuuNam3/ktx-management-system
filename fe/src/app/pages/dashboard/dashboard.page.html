@@ -1,46 +1,132 @@
-<div class="p-8 max-w-[1400px]">
-  <app-page-header
-    title="Tổng quan"
-    description="Thống kê và hoạt động hệ thống KTX"
-    [showCheckin]="false"
-    [showCheckout]="false"
-    [showQR]="false"
-  />
+<div class="page">
+  <div class="mb-7">
+    <h1 class="demo-title">Tổng quan</h1>
+    <p class="demo-subtitle">Thống kê và hoạt động hệ thống KTX</p>
+  </div>
 
-  <div class="mb-6 grid gap-4 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
-      <app-statistic-card label="Tổng số khách" value="342" lucideIcon="users" subtitle="+12 hôm nay" subtitleIcon="trending-up" subtitleIconColor="#16A34A" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Số phòng trống" value="28/120" lucideIcon="bed" subtitle="23% còn trống" subtitleIcon="trending-down" subtitleIconColor="#DC2626" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Doanh thu hôm nay" value="12.5M" lucideIcon="dollar-sign" subtitle="+8.2% so với hôm qua" subtitleIcon="trending-up" subtitleIconColor="#16A34A" color="#F59E0B" bgColor="#FFFBEB" />
-      <app-statistic-card label="Cảnh báo" value="8" lucideIcon="triangle-alert" subtitle="3 chưa đóng tiền" subtitleIcon="trending-up" subtitleIconColor="#16A34A" color="#DC2626" bgColor="#FEF2F2" />
+  <div class="grid grid-cols-4 gap-8 mb-8 max-[1500px]:grid-cols-2">
+    <div class="demo-card min-h-[170px] p-7 flex items-start justify-between">
+      <div>
+        <div class="text-[17px] font-bold text-[#344054] mb-5">Tổng số khách</div>
+        <div class="text-[36px] font-black text-black mb-4">342</div>
+        <div class="text-[16px] text-text-secondary flex items-center gap-2"><app-lucide-icon name="trending-up" [size]="18" color="#00A63E" />+12 hôm nay</div>
+      </div>
+      <div class="w-[58px] h-[58px] rounded-xl bg-[#EFF6FF] grid place-items-center"><app-lucide-icon name="users" [size]="30" color="#0B57FF" /></div>
     </div>
-
-  <div class="mb-6 grid gap-6 grid-cols-[1.6fr_1fr] max-[1200px]:grid-cols-1">
-    <div class="col-chart-main">
-      <app-chart-card
-        title="Doanh thu 7 ngày"
-        description="Biểu đồ doanh thu"
-        type="line"
-        [data]="revenueData"
-        [labels]="revenueLabels"
-      />
+    <div class="demo-card min-h-[170px] p-7 flex items-start justify-between">
+      <div>
+        <div class="text-[17px] font-bold text-[#344054] mb-5">Số phòng trống</div>
+        <div class="text-[36px] font-black text-black mb-4">28/120</div>
+        <div class="text-[16px] text-text-secondary flex items-center gap-2"><app-lucide-icon name="trending-down" [size]="18" color="#E60012" />23% còn trống</div>
+      </div>
+      <div class="w-[58px] h-[58px] rounded-xl bg-[#F0FDF4] grid place-items-center"><app-lucide-icon name="bed" [size]="30" color="#00A63E" /></div>
     </div>
-    <div class="col-chart-side">
-      <app-chart-card
-        title="Phân bố loại phòng"
-        type="donut"
-        [data]="distData"
-        [labels]="distLabels"
-        [colors]="distColors"
-      />
+    <div class="demo-card min-h-[170px] p-7 flex items-start justify-between">
+      <div>
+        <div class="text-[17px] font-bold text-[#344054] mb-5">Doanh thu hôm nay</div>
+        <div class="text-[36px] font-black text-black mb-4">12.5M</div>
+        <div class="text-[16px] text-text-secondary flex items-center gap-2"><app-lucide-icon name="trending-up" [size]="18" color="#00A63E" />+8.2% so với hôm qua</div>
+      </div>
+      <div class="w-[58px] h-[58px] rounded-xl bg-[#FEFCE8] grid place-items-center"><app-lucide-icon name="dollar-sign" [size]="30" color="#D97706" /></div>
+    </div>
+    <div class="demo-card min-h-[170px] p-7 flex items-start justify-between">
+      <div>
+        <div class="text-[17px] font-bold text-[#344054] mb-5">Cảnh báo</div>
+        <div class="text-[36px] font-black text-black mb-4">8</div>
+        <div class="text-[16px] text-text-secondary flex items-center gap-2"><app-lucide-icon name="trending-up" [size]="18" color="#00A63E" />3 chưa đóng tiền</div>
+      </div>
+      <div class="w-[58px] h-[58px] rounded-xl bg-[#FEF2F2] grid place-items-center"><app-lucide-icon name="triangle-alert" [size]="30" color="#E60012" /></div>
     </div>
   </div>
 
-  <div class="mb-6 grid gap-6 grid-cols-2 max-[1200px]:grid-cols-1">
-    <div class="col-timeline">
-      <app-timeline [items]="timelineItems" />
+  <div class="grid grid-cols-[1.55fr_0.75fr] gap-8 mb-8 max-[1500px]:grid-cols-1">
+    <div class="demo-card p-8">
+      <h2 class="text-[23px] font-black m-0 text-black">Doanh thu 7 ngày</h2>
+      <p class="text-[22px] text-text-secondary mt-2 mb-7">Biểu đồ doanh thu và số lượng khách</p>
+      <svg viewBox="0 0 840 360" class="w-full h-[360px]">
+        <defs>
+          <linearGradient id="dashRevenue" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#22C55E" stop-opacity=".24" />
+            <stop offset="100%" stop-color="#3B82F6" stop-opacity=".18" />
+          </linearGradient>
+        </defs>
+        @for (y of [40,110,180,250,320]; track y) {
+          <line x1="70" [attr.y1]="y" x2="780" [attr.y2]="y" stroke="#D1D5DB" stroke-dasharray="4 4" />
+        }
+        @for (x of [70,188,306,424,542,660,780]; track x) {
+          <line [attr.x1]="x" y1="40" [attr.x2]="x" y2="320" stroke="#D1D5DB" stroke-dasharray="4 4" />
+        }
+        <polygon points="70,78 188,72 306,62 424,68 542,58 660,56 780,54 780,320 70,320" fill="url(#dashRevenue)" />
+        <polyline points="70,204 188,188 306,132 424,158 542,124 660,136 780,114" fill="none" stroke="#3B82F6" stroke-width="2.5" />
+        <polyline points="70,78 188,72 306,62 424,68 542,58 660,56 780,54" fill="none" stroke="#10B981" stroke-width="2" />
+        @for (label of ['19/03','20/03','21/03','22/03','23/03','24/03','25/03']; track label; let i = $index) {
+          <text [attr.x]="70 + i * 118" y="348" text-anchor="middle" fill="#667085" font-size="20">{{ label }}</text>
+        }
+      </svg>
+      <div class="flex justify-end">
+        <button class="h-11 px-4 rounded-lg border-0 bg-[#020617] text-white text-[17px] font-black flex items-center gap-3 cursor-pointer" (click)="exportReport()">
+          <app-lucide-icon name="download" [size]="18" color="white" />
+          Xuất báo cáo
+        </button>
+      </div>
     </div>
-    <div class="col-alerts">
-      <app-alert-card [alerts]="alertItems" />
+
+    <div class="demo-card p-8">
+      <h2 class="text-[23px] font-black m-0 text-black">Loại phòng</h2>
+      <p class="text-[22px] text-text-secondary mt-2 mb-10">Phân bổ theo loại phòng</p>
+      <div class="flex justify-center mb-8">
+        <div class="relative w-[238px] h-[238px] rounded-full bg-[conic-gradient(#3B82F6_0_45%,#F59E0B_45%_65%,#10B981_65%_100%)]">
+          <div class="absolute inset-[28px] rounded-full bg-white"></div>
+        </div>
+      </div>
+      <div class="grid gap-4 text-[18px]">
+        <div class="flex items-center gap-4"><span class="w-4 h-4 rounded-full bg-[#3B82F6]"></span><span class="flex-1 text-text-secondary">Phòng 4 người</span><strong>45%</strong></div>
+        <div class="flex items-center gap-4"><span class="w-4 h-4 rounded-full bg-[#10B981]"></span><span class="flex-1 text-text-secondary">Phòng 6 người</span><strong>55%</strong></div>
+        <div class="flex items-center gap-4"><span class="w-4 h-4 rounded-full bg-[#F59E0B]"></span><span class="flex-1 text-text-secondary">Phòng 8 người</span><strong>20%</strong></div>
+      </div>
     </div>
   </div>
+
+  <div class="grid grid-cols-2 gap-8 max-[1500px]:grid-cols-1">
+    <div class="demo-card p-8">
+      <h2 class="text-[23px] font-black m-0 text-black">Hoạt động gần đây</h2>
+      <p class="text-[22px] text-text-secondary mt-2 mb-7">Nhật ký hoạt động hôm nay</p>
+      @for (activity of activities; track activity.time) {
+        <div class="grid grid-cols-[80px_1fr] gap-0 py-4 border-b border-border last:border-0 text-[18px]">
+          <strong class="text-[#667085]">{{ activity.time }}</strong>
+          <div>
+            <span class="inline-flex rounded-md px-3 py-1 text-[15px] font-black mb-2"
+                  [class.bg-green-100]="activity.tone === 'green'" [class.text-green-700]="activity.tone === 'green'"
+                  [class.bg-blue-100]="activity.tone === 'blue'" [class.text-blue-700]="activity.tone === 'blue'"
+                  [class.bg-red-100]="activity.tone === 'red'" [class.text-red-700]="activity.tone === 'red'"
+                  [class.bg-purple-100]="activity.tone === 'purple'" [class.text-purple-700]="activity.tone === 'purple'"
+                  [class.bg-yellow-100]="activity.tone === 'yellow'" [class.text-yellow-700]="activity.tone === 'yellow'"
+                  [class.bg-orange-100]="activity.tone === 'orange'" [class.text-orange-700]="activity.tone === 'orange'">{{ activity.type }}</span>
+            <div>{{ activity.text }}</div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="demo-card p-8">
+      <h2 class="text-[23px] font-black m-0 text-black">Cảnh báo & Thông báo</h2>
+      <p class="text-[22px] text-text-secondary mt-2 mb-8">Các vấn đề cần xử lý</p>
+      <div class="grid gap-4">
+        @for (alert of alerts; track alert.title) {
+          <div class="rounded-xl border p-5 flex gap-4 items-start" [class]="alert.className">
+            <app-lucide-icon name="triangle-alert" [size]="22" />
+            <div>
+              <div class="text-[18px] font-black text-black mb-2">{{ alert.title }}</div>
+              <div class="text-[16px] text-text-secondary">{{ alert.time }}</div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (message) {
+    <div class="fixed right-6 bottom-6 z-[300] max-w-sm rounded-xl border border-primary-border bg-white px-5 py-4 shadow-[0_14px_40px_rgba(15,23,42,0.18)] text-sm text-text-primary">
+      {{ message }}
+    </div>
+  }
 </div>

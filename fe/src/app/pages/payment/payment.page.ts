@@ -1,86 +1,72 @@
-import { Component, OnInit } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
-import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
-import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { LucideIconComponent } from '../../components/lucide-icon/lucide-icon.component';
-import { PaymentService } from '../../services/payment.service';
-import { PaymentStats, PaymentRecord, PaymentStatus, PaymentTab } from '../../models/payment.model';
+
+type PaymentStatus = 'overdue' | 'unpaid' | 'partial' | 'paid';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.page.html',
   standalone: true,
-  imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, SearchInputComponent, LucideIconComponent],
+  imports: [FormsModule, PageHeaderComponent, LucideIconComponent],
 })
-export class PaymentPage implements OnInit {
-  stats!: PaymentStats;
-  records: PaymentRecord[] = [];
-  filtered: PaymentRecord[] = [];
-  activeTab: PaymentTab = 'cong-no';
-  statusFilter: string = 'all';
+export class PaymentPage {
+  activeTab = 'debt';
+  searchTerm = '';
+  statusFilter = 'all';
+  message = '';
 
-  tabs: { key: PaymentTab; label: string }[] = [
-    { key: 'cong-no', label: 'Công nợ' },
-    { key: 'da-thanh-toan', label: 'Đã thanh toán' },
-    { key: 'lich-su', label: 'Lịch sử' },
-    { key: 'doi-soat-ca', label: 'Đối soát ca' },
+  tabs = [
+    { key: 'debt', label: 'Công nợ', badge: 3 },
+    { key: 'paid', label: 'Đã thanh toán' },
+    { key: 'history', label: 'Lịch sử' },
+    { key: 'shift', label: 'Đối soát ca' },
   ];
 
-  statusOptions = [
-    { label: 'Tất cả', value: 'all' },
-    { label: 'Chưa đóng', value: 'chua-dong' },
-    { label: 'Đã đóng', value: 'da-dong' },
-    { label: 'Quá hạn', value: 'qua-han' },
+  rows = [
+    { customer: 'Nguyễn Văn An', phone: '0901234567', room: 'A201', fees: ['Tiền phòng', 'Điện nước'], amount: '1.259.000 đ', due: '05/04/2026', status: 'overdue' as PaymentStatus },
+    { customer: 'Trần Thị Bình', phone: '0909876543', room: 'B305', fees: ['Tiền phòng', 'Vé ăn'], amount: '1.150.000 đ', due: '10/04/2026', status: 'unpaid' as PaymentStatus },
+    { customer: 'Lê Văn Cường', phone: '0903456789', room: 'C108', fees: ['Tiền phòng', 'Điện nước', 'Phí'], amount: '371.000 đ', paid: 'Đã đóng: 500.000 đ', due: '08/04/2026', status: 'partial' as PaymentStatus },
   ];
 
-  constructor(private paymentService: PaymentService) {}
-
-  ngOnInit() {
-    this.paymentService.getStats().subscribe(s => this.stats = s);
-    this.paymentService.getRecords().subscribe(r => {
-      this.records = r;
-      this.applyFilters();
+  get filteredRows() {
+    const q = this.searchTerm.trim().toLowerCase();
+    return this.rows.filter(row => {
+      const matchesText = !q || [row.customer, row.phone, row.room].some(value => value.toLowerCase().includes(q));
+      const matchesTab = this.activeTab === 'paid' ? row.status === 'paid' : this.activeTab !== 'debt' || row.status !== 'paid';
+      const matchesStatus = this.statusFilter === 'all' || row.status === this.statusFilter;
+      return matchesText && matchesStatus && matchesTab;
     });
   }
 
-  setTab(tab: PaymentTab) {
-    this.activeTab = tab;
-    this.applyFilters();
+  statusLabel(status: PaymentStatus) {
+    return { overdue: 'Quá hạn', unpaid: 'Chưa đóng', partial: 'Đã đóng 1 phần', paid: 'Đã thanh toán' }[status];
   }
 
-  onSearch(val: string) {
-    if (!val.trim()) { this.applyFilters(); return; }
-    const q = val.toLowerCase();
-    this.filtered = this.filtered.filter(x =>
-      x.customer.toLowerCase().includes(q) || x.room.toLowerCase().includes(q)
-    );
+  statusClass(status: PaymentStatus) {
+    return {
+      overdue: 'bg-rose-600 text-white',
+      unpaid: 'bg-gray-100 text-slate-900',
+      partial: 'bg-[#020214] text-white',
+      paid: 'bg-green-100 text-green-700',
+    }[status];
   }
 
-  onStatusFilter(val: string) {
-    this.statusFilter = val;
-    this.applyFilters();
+  pay(row: { status: PaymentStatus; paid?: string; amount: string; customer: string }) {
+    row.status = 'paid';
+    row.paid = `Đã thanh toán: ${row.amount}`;
+    const tab = this.tabs.find(item => item.key === 'debt');
+    if (tab?.badge) tab.badge = Math.max(0, tab.badge - 1);
+    this.show(`Đã ghi nhận thanh toán cho ${row.customer}`);
   }
 
-  private applyFilters() {
-    let base = [...this.records];
-    if (this.activeTab === 'cong-no') base = base.filter(r => r.status === 'chua-dong' || r.status === 'qua-han');
-    else if (this.activeTab === 'da-thanh-toan') base = base.filter(r => r.status === 'da-dong');
-    if (this.statusFilter !== 'all') base = base.filter(r => r.status === this.statusFilter);
-    this.filtered = base;
+  exportExcel() {
+    this.show('Đã xuất danh sách thanh toán.');
   }
 
-  getStatusLabel(s: string): string {
-    const map: Record<string, string> = { 'chua-dong': 'Chưa đóng', 'da-dong': 'Đã đóng', 'qua-han': 'Quá hạn' };
-    return map[s] || s;
-  }
-
-  getStatusBadge(s: string): string {
-    const map: Record<string, string> = { 'chua-dong': 'badge-pending', 'da-dong': 'badge-success', 'qua-han': 'badge-danger' };
-    return map[s] || '';
-  }
-
-  formatCurrency(v: number): string {
-    return v.toLocaleString('vi-VN') + 'đ';
+  show(text: string) {
+    this.message = text;
+    window.setTimeout(() => this.message = '', 1800);
   }
 }

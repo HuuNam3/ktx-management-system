@@ -7,6 +7,8 @@
       type="text"
       class="w-full py-[14px] pl-12 pr-4 border border-border rounded-xl text-[15px] outline-none bg-bg text-text-primary transition-colors duration-200 placeholder:text-gray-400 focus:border-primary focus:ring-3 focus:ring-primary/10"
       placeholder="Nhập CCCD, tên hoặc số phòng..."
+      [value]="lastQuery()"
+      (input)="onInput($any($event.target).value)"
     />
   </div>
 </div>

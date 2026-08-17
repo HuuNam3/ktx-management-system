@@ -1,7 +1,7 @@
-<div class="bg-card-bg rounded-[20px] p-7 border border-border flex items-start justify-between h-full min-h-[150px] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg" [style.--stat-color]="color()" [style.--stat-bg]="bgColor()">
+<div class="bg-card-bg rounded-[16px] p-5 border border-border flex items-start justify-between h-full min-h-[116px] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg" [style.--stat-color]="color()" [style.--stat-bg]="bgColor()">
   <div class="flex flex-col gap-1.5">
-    <span class="text-sm text-gray-800 font-black">{{ label() }}</span>
-    <span class="text-3xl font-black text-text-primary leading-[1.1]">{{ value() }}</span>
+    <span class="text-[16px] text-gray-800 font-medium">{{ label() }}</span>
+    <span class="text-[30px] font-black text-text-primary leading-[1.1]">{{ value() }}</span>
     @if (subtitle()) {
       <span class="text-sm text-text-secondary flex items-center gap-1">
         @if (subtitleIcon()) {

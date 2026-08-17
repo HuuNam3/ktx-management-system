@@ -1,35 +1,37 @@
-<div class="bg-card-bg rounded-[20px] p-5 border border-border flex flex-col gap-2 transition duration-200 hover:-translate-y-[3px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
-     [class.border-l-4]="true"
-     [class.border-l-success]="room().status === 'empty'"
-     [class.border-l-primary]="room().status === 'partial'"
-     [class.border-l-danger]="room().status === 'full'"
-     [class.border-l-warning]="room().status === 'maintenance'">
-  <div class="flex justify-between items-center">
-    <span class="text-2xl font-bold text-text-primary">{{ room().code }}</span>
-    <span class="text-[22px]"
-          [class.text-success]="room().status === 'empty'"
-          [class.text-primary]="room().status === 'partial'"
-          [class.text-danger]="room().status === 'full'"
-          [class.text-warning]="room().status === 'maintenance'">
-      <app-lucide-icon [name]="statusIcon" [size]="22" />
-    </span>
+<div class="rounded-[16px] min-h-[190px] p-5 border-2 flex flex-col items-center justify-center gap-2 transition duration-200 hover:-translate-y-[3px] hover:shadow-[0_12px_28px_rgba(15,23,42,0.12)] cursor-pointer"
+     [class.bg-[#DBEAFE]]="room().status === 'partial'"
+     [class.border-[#7DBBFF]]="room().status === 'partial'"
+     [class.bg-[#DCFCE7]]="room().status === 'empty'"
+     [class.border-[#4ADE80]]="room().status === 'empty'"
+     [class.bg-[#FEE2E2]]="room().status === 'full'"
+     [class.border-[#FF8A8A]]="room().status === 'full'"
+     [class.bg-[#FEF9C3]]="room().status === 'maintenance'"
+     [class.border-[#FACC15]]="room().status === 'maintenance'">
+  <app-lucide-icon
+    [name]="statusIcon"
+    [size]="22"
+    [color]="room().status === 'empty' ? '#008B3A' : room().status === 'full' ? '#DC0000' : room().status === 'maintenance' ? '#B45309' : '#0B57FF'"
+  />
+  <div class="text-[24px] font-black leading-none"
+       [class.text-[#0B57FF]]="room().status === 'partial'"
+       [class.text-[#008B3A]]="room().status === 'empty'"
+       [class.text-[#DC0000]]="room().status === 'full'"
+       [class.text-[#B45309]]="room().status === 'maintenance'">
+    {{ room().code }}
   </div>
-  <div class="text-sm text-text-secondary">{{ room().type }}</div>
-  <div class="text-[28px] font-bold text-text-primary">
-    <span>{{ room().current }}</span>
-    <span class="text-border mx-[2px]">/</span>
-    <span>{{ room().max }}</span>
-    <span class="text-[13px] font-normal text-text-secondary ml-1">người</span>
+  <div class="text-[14px] text-[#374151]">{{ room().type }}</div>
+  <div class="text-[16px] font-bold"
+       [class.text-[#0B57FF]]="room().status === 'partial'"
+       [class.text-[#008B3A]]="room().status === 'empty'"
+       [class.text-[#DC0000]]="room().status === 'full'"
+       [class.text-[#B45309]]="room().status === 'maintenance'">
+    {{ room().current }}/{{ room().max }}
   </div>
-  <div class="text-xs font-semibold px-3 py-1 rounded-full self-start"
-       [class.bg-green-50]="room().status === 'empty'"
-       [class.text-success]="room().status === 'empty'"
-       [class.bg-primary-light]="room().status === 'partial'"
-       [class.text-primary]="room().status === 'partial'"
-       [class.bg-red-50]="room().status === 'full'"
-       [class.text-danger]="room().status === 'full'"
-       [class.bg-amber-50]="room().status === 'maintenance'"
-       [class.text-warning]="room().status === 'maintenance'">
+  <div class="text-[13px] font-bold px-3 py-1 rounded-xl border bg-white/25"
+       [class.border-[#BFDBFE]]="room().status === 'partial'"
+       [class.border-[#BBF7D0]]="room().status === 'empty'"
+       [class.border-[#FECACA]]="room().status === 'full'"
+       [class.border-[#FDE68A]]="room().status === 'maintenance'">
     {{ statusLabel }}
   </div>
 </div>

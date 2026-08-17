@@ -1,8 +1,6 @@
 import { Component, input } from '@angular/core';
 import { StatusTagComponent } from '../status-tag/status-tag.component';
-import { IonIcon } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { personOutline, personSharp } from 'ionicons/icons';
+import { LucideIconComponent } from '../lucide-icon/lucide-icon.component';
 
 export interface CheckinItem {
   name: string;
@@ -17,12 +15,8 @@ export interface CheckinItem {
   selector: 'app-recent-checkin-item',
   templateUrl: './recent-checkin-item.component.html',
   standalone: true,
-  imports: [StatusTagComponent, IonIcon],
+  imports: [StatusTagComponent, LucideIconComponent],
 })
 export class RecentCheckinItemComponent {
   item = input.required<CheckinItem>();
-
-  constructor() {
-    addIcons({ personOutline, personSharp });
-  }
 }

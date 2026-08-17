@@ -1,56 +1,42 @@
-<div class="p-8 max-w-[1400px]">
-  <app-page-header
-    title="Quản lý Hồ sơ 238"
-    description="Duyệt hồ sơ miễn giảm"
-    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
-  />
+<div class="page">
+  <app-page-header title="Quản lý Hồ sơ 238" description="Duyệt hồ sơ miễn giảm học phí theo QĐ 238" [showCheckin]="false" [showCheckout]="false" [showQR]="false" />
 
-  @if (stats) {
-    <div class="mb-6 grid gap-4 grid-cols-4">
-      <app-statistic-card label="Chờ duyệt" [value]="stats.pending | number" lucideIcon="hourglass" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
-      <app-statistic-card label="Đã duyệt" [value]="stats.approved | number" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Từ chối" [value]="stats.rejected | number" lucideIcon="x-circle" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
-      <app-statistic-card label="Tổng hồ sơ" [value]="stats.total | number" lucideIcon="clipboard-list" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-    </div>
-  }
-
-  <div class="mb-6">
-    <app-filter-bar [options]="filterOptions" [selected]="activeFilter" (selectedChange)="onFilterChange($event)" />
-  </div>
-
-  <div class="mb-6 bg-card-bg rounded-[20px] border border-border overflow-x-auto">
-    <div class="grid items-center px-6 py-[14px] gap-3 min-w-[700px] text-xs font-semibold text-text-secondary uppercase tracking-wider border-b border-border">
-      <span>Mã SV</span>
-      <span>Họ tên</span>
-      <span>Phòng</span>
-      <span>Loại hồ sơ</span>
-      <span>Ngày nộp</span>
-      <span>Tài liệu</span>
-      <span>Trạng thái</span>
-      <span>Thao tác</span>
-    </div>
-    <div class="table-bdy">
-      @for (p of profiles; track p.id) {
-        <div class="grid items-center px-6 py-[14px] gap-3 min-w-[700px] text-sm text-text-primary border-t border-[#F3F4F6] hover:bg-[#FAFBFC]">
-          <span class="font-semibold text-primary">{{ p.studentCode }}</span>
-          <span class="font-semibold">{{ p.name }}</span>
-          <span>{{ p.room }}</span>
-          <span>{{ p.type }}</span>
-          <span>{{ p.submitDate }}</span>
-          <span>{{ p.documents }}</span>
-          <span><span class="badge" [class]="getStatusBadge(p.status)">{{ getStatusLabel(p.status) }}</span></span>
-          <span class="flex gap-1.5">
-            @if (p.status === 'cho-duyet') {
-              <button class="size-9 rounded-[10px] border-none bg-transparent cursor-pointer inline-flex items-center justify-center text-lg transition-colors duration-200 hover:bg-bg text-success hover:bg-[#F0FDF4]" (click)="onApprove(p)" title="Duyệt"><app-lucide-icon name="check" [size]="18" /></button>
-              <button class="size-9 rounded-[10px] border-none bg-transparent cursor-pointer inline-flex items-center justify-center text-lg transition-colors duration-200 hover:bg-bg text-danger hover:bg-[#FEF2F2]" (click)="onReject(p)" title="Từ chối"><app-lucide-icon name="x" [size]="18" /></button>
-            }
-            <button class="size-9 rounded-[10px] border-none bg-transparent cursor-pointer inline-flex items-center justify-center text-lg transition-colors duration-200 hover:bg-bg" (click)="onView(p)" title="Xem"><app-lucide-icon name="eye" [size]="18" /></button>
-          </span>
+  <div class="mb-[30px] grid grid-cols-4 gap-5 max-xl:grid-cols-2 max-md:grid-cols-1">
+    @for (stat of stats; track stat.label) {
+      <div class="min-h-[132px] rounded-2xl border px-[30px] py-8" [style.background]="stat.bg" [style.border-color]="stat.border">
+        <div class="flex items-center justify-between">
+          <div><div class="text-base" [style.color]="stat.color">{{ stat.label }}</div><div class="mt-4 text-[34px] font-bold" [style.color]="stat.color">{{ stat.value }}</div></div>
+          <app-lucide-icon [name]="stat.icon" [size]="44" [color]="stat.color" />
         </div>
-      }
-      @if (profiles.length === 0) {
-        <div class="text-center py-12 px-6 text-text-secondary text-sm font-medium">Không có hồ sơ nào</div>
-      }
+      </div>
+    }
+  </div>
+
+  <div class="mb-[30px] inline-flex rounded-2xl bg-gray-200 p-1">
+    @for (filter of filters; track filter.key) {
+      <button class="rounded-xl border-0 bg-transparent px-4 py-2 text-base font-bold" [class.bg-white]="activeFilter === filter.key" (click)="activeFilter = filter.key">{{ filter.label }}</button>
+    }
+  </div>
+
+  <div class="rounded-2xl border border-gray-200 bg-white p-[30px]">
+    <h3 class="m-0 mb-8 text-xl font-bold">Danh sách hồ sơ</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[1100px] border-collapse text-left text-base">
+        <thead><tr class="border-b border-gray-200"><th class="py-4">Mã SV</th><th>Họ tên</th><th>Phòng</th><th>Loại hồ sơ</th><th>Ngày nộp</th><th>Tài liệu</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+        <tbody>
+          @for (row of filteredProfiles; track row.code) {
+            <tr class="border-b border-gray-200 last:border-0">
+              <td class="py-4 font-bold">{{ row.code }}</td><td>{{ row.name }}</td><td><span class="rounded-lg border border-gray-200 px-3 py-1 text-sm font-bold">{{ row.room }}</span></td>
+              <td><span class="rounded-md px-3 py-1 text-sm font-bold" [class]="typeClass(row.type)">{{ row.type }}</span></td><td>{{ row.date }}</td>
+              <td><span class="inline-flex items-center gap-1 text-slate-600"><app-lucide-icon name="upload" [size]="17" /> {{ row.docs }}</span></td>
+              <td><span class="rounded-lg px-3 py-1 text-sm font-bold" [class]="statusClass(row.status)">{{ statusLabel(row.status) }}</span></td>
+              <td><button class="inline-flex size-9 items-center justify-center rounded-lg border-0 bg-transparent hover:bg-gray-100" (click)="show('Đã mở hồ sơ')"><app-lucide-icon name="eye" [size]="18" /></button></td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
+
+  @if (message) { <div class="fixed bottom-6 right-6 z-[300] rounded-xl bg-[#020214] px-5 py-3 text-sm font-bold text-white shadow-xl">{{ message }}</div> }
 </div>

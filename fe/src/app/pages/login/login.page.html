@@ -1,0 +1,89 @@
+<div class="min-h-screen grid grid-cols-[1.1fr_0.9fr] max-lg:grid-cols-1 bg-bg">
+  <section class="relative min-h-screen p-10 flex flex-col justify-between overflow-hidden bg-[#0F172A] text-white">
+    <div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_20%,#22C55E_0,transparent_28%),radial-gradient(circle_at_78%_30%,#38BDF8_0,transparent_32%),linear-gradient(135deg,#0F172A,#1E293B)]"></div>
+    <div class="relative z-10 flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/20 grid place-items-center">
+        <app-lucide-icon name="building-2" [size]="24" color="white" />
+      </div>
+      <div>
+        <div class="text-lg font-bold">KTX Management</div>
+        <div class="text-sm text-white/70">Hệ thống quản lý ký túc xá</div>
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-2xl">
+      <p class="text-sm uppercase tracking-[0.18em] text-cyan-200 mb-4">Quản lý ký túc xá</p>
+      <h1 class="text-5xl max-md:text-4xl font-bold leading-tight m-0">Đăng nhập để vào các màn quản trị.</h1>
+      <p class="text-lg text-white/70 mt-5 leading-relaxed max-w-xl">
+        Tài khoản mẫu đã được điền sẵn. Sau khi đăng nhập có thể thử tìm kiếm, lọc phòng, mở thông báo và đăng xuất.
+      </p>
+    </div>
+
+    <div class="relative z-10 grid grid-cols-3 gap-4 max-md:grid-cols-1">
+      <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
+        <div class="text-2xl font-bold">342</div>
+        <div class="text-sm text-white/70">khách đang quản lý</div>
+      </div>
+      <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
+        <div class="text-2xl font-bold">120</div>
+        <div class="text-sm text-white/70">phòng trong hệ thống</div>
+      </div>
+      <div class="rounded-2xl border border-white/15 bg-white/10 p-4">
+        <div class="text-2xl font-bold">8</div>
+        <div class="text-sm text-white/70">cảnh báo hôm nay</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="min-h-screen flex items-center justify-center p-8 bg-card-bg">
+    <form class="w-full max-w-[430px]" (ngSubmit)="submit()">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-text-primary m-0">Đăng nhập</h2>
+        <p class="text-text-secondary mt-2">Dùng tài khoản được cấp để vào hệ thống.</p>
+      </div>
+
+      <label class="block text-sm font-semibold text-text-primary mb-2" for="email">Tài khoản</label>
+      <input
+        id="email"
+        name="email"
+        type="text"
+        class="w-full mb-5 py-3.5 px-4 border border-border rounded-xl outline-none bg-bg text-text-primary focus:border-primary focus:ring-3 focus:ring-primary/10"
+        [(ngModel)]="email"
+        autocomplete="username"
+      />
+
+      <label class="block text-sm font-semibold text-text-primary mb-2" for="password">Mật khẩu</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        class="w-full mb-4 py-3.5 px-4 border border-border rounded-xl outline-none bg-bg text-text-primary focus:border-primary focus:ring-3 focus:ring-primary/10"
+        [(ngModel)]="password"
+        autocomplete="current-password"
+      />
+
+      <label class="mb-5 flex items-center gap-3 text-sm text-text-secondary cursor-pointer">
+        <input type="checkbox" name="remember" class="w-4 h-4 accent-primary" [(ngModel)]="remember" />
+        Ghi nhớ phiên đăng nhập
+      </label>
+
+      @if (error()) {
+        <div class="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-danger">
+          {{ error() }}
+        </div>
+      }
+
+      <button
+        type="submit"
+        class="w-full h-12 rounded-xl border-none bg-primary text-white font-semibold cursor-pointer hover:bg-[#1D4ED8] disabled:opacity-70 disabled:cursor-wait transition-colors"
+        [disabled]="loading()"
+      >
+        {{ loading() ? 'Đang đăng nhập...' : 'Đăng nhập' }}
+      </button>
+
+      <div class="mt-5 rounded-xl bg-bg border border-border p-4 text-sm text-text-secondary">
+        Tài khoản: <strong class="text-text-primary">admin@ktx.local</strong> / <strong class="text-text-primary">123456</strong>
+      </div>
+    </form>
+  </section>
+</div>

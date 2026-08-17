@@ -1,46 +1,76 @@
 <div class="page">
-  <app-page-header
-    title="Quản lý vé"
-    description="Quản lý vé ăn và vé xe"
-    [showCheckin]="false"
-    [showCheckout]="false"
-    [showQR]="true"
-    (qrClick)="onQr()"
-  >
-    <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-semibold border-none cursor-pointer bg-primary text-white hover:bg-[#1D4ED8]" (click)="onBuy()"><app-lucide-icon name="plus" [size]="18" color="white" /> Mua vé mới</button>
+  <app-page-header title="Quản lý Vé" description="Vé ăn, vé xe và dịch vụ khác" [showCheckin]="false" [showCheckout]="false" [showQR]="false">
+    <button class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-base font-bold" (click)="show('Đã quét QR')">
+      <app-lucide-icon name="qr-code" [size]="18" /> Quét QR
+    </button>
+    <button class="inline-flex items-center gap-2 rounded-xl border-0 bg-[#020214] px-5 py-3 text-base font-bold text-white" (click)="show('Đã mở form mua vé')">
+      <app-lucide-icon name="plus" [size]="18" color="white" /> Mua vé mới
+    </button>
   </app-page-header>
 
-  @if (stats) {
-    <div class="row stats-row stats-row-4">
-      <app-statistic-card label="Vé ăn" [value]="stats.mealTickets | number" lucideIcon="utensils-crossed" subtitle="Hôm nay" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Vé xe" [value]="stats.vehicleTickets | number" lucideIcon="car" subtitle="Hôm nay" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Doanh thu" [value]="formatCurrency(stats.revenue)" lucideIcon="dollar-sign" subtitle="Tháng 7/2026" color="#F59E0B" bgColor="#FFFBEB" />
-      <app-statistic-card label="Suất ăn" [value]="stats.mealsServed | number" lucideIcon="utensils" subtitle="Đã phục vụ" color="#8B5CF6" bgColor="#F3E8FF" />
-    </div>
-  }
+  <div class="mb-[30px] grid grid-cols-4 gap-5 max-xl:grid-cols-2 max-md:grid-cols-1">
+    @for (stat of stats; track stat.label) {
+      <div class="min-h-[132px] rounded-2xl border px-[30px] py-8" [style.background]="stat.bg" [style.border-color]="stat.border">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-base" [style.color]="stat.color">{{ stat.label }}</div>
+            <div class="mt-4 text-[34px] font-bold leading-none" [style.color]="stat.color">{{ stat.value }}</div>
+          </div>
+          <app-lucide-icon [name]="stat.icon" [size]="42" [color]="stat.color" />
+        </div>
+      </div>
+    }
+  </div>
 
-  <div class="row grid grid-cols-2 gap-6 max-lg:grid-cols-1">
-    <div>
-      <div class="bg-card-bg rounded-xl p-6 border border-border">
-        <div class="flex items-center gap-2.5 mb-2">
-          <h3 class="text-xl font-semibold text-text-primary m-0">Giao dịch vé ăn</h3>
-          <span class="bg-bg text-text-secondary text-xs font-semibold px-2.5 py-0.5 rounded-full">{{ mealTransactions.length }}</span>
+  <div class="mb-[30px] grid grid-cols-2 gap-7 max-lg:grid-cols-1">
+    <div class="rounded-2xl border border-gray-200 bg-white p-[30px]">
+      <h3 class="m-0 mb-8 text-xl font-bold">Giao dịch vé ăn gần đây</h3>
+      @for (item of mealTransactions; track item.name) {
+        <div class="mb-4 flex items-center gap-4 rounded-xl bg-gray-50 p-4 last:mb-0">
+          <div class="flex size-12 items-center justify-center rounded-full bg-orange-100 text-orange-600"><app-lucide-icon name="utensils" [size]="24" /></div>
+          <div class="flex-1">
+            <div class="text-lg font-bold">{{ item.name }}</div>
+            <div class="text-base text-slate-500">{{ item.detail }}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-lg font-bold">{{ item.amount }}</div>
+            <div class="text-sm text-slate-500">{{ item.time }}</div>
+          </div>
         </div>
-        @for (item of mealTransactions; track item.id) {
-          <app-ticket-item [item]="item" />
-        }
-      </div>
+      }
     </div>
-    <div>
-      <div class="bg-card-bg rounded-xl p-6 border border-border">
-        <div class="flex items-center gap-2.5 mb-2">
-          <h3 class="text-xl font-semibold text-text-primary m-0">Giao dịch vé xe</h3>
-          <span class="bg-bg text-text-secondary text-xs font-semibold px-2.5 py-0.5 rounded-full">{{ vehicleTransactions.length }}</span>
+
+    <div class="rounded-2xl border border-gray-200 bg-white p-[30px]">
+      <h3 class="m-0 mb-8 text-xl font-bold">Giao dịch vé xe gần đây</h3>
+      @for (item of vehicleTransactions; track item.name) {
+        <div class="mb-4 flex items-center gap-4 rounded-xl bg-gray-50 p-4 last:mb-0">
+          <div class="flex size-12 items-center justify-center rounded-full bg-blue-100 text-blue-600"><app-lucide-icon name="car" [size]="24" /></div>
+          <div class="flex-1">
+            <div class="text-lg font-bold">{{ item.name }}</div>
+            <div class="text-base text-slate-500">{{ item.detail }}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-lg font-bold">{{ item.amount }}</div>
+            <div class="text-sm text-slate-500">{{ item.time }}</div>
+          </div>
         </div>
-        @for (item of vehicleTransactions; track item.id) {
-          <app-ticket-item [item]="item" />
-        }
-      </div>
+      }
     </div>
   </div>
+
+  <div class="rounded-2xl border border-gray-200 bg-white p-[30px]">
+    <h3 class="m-0 mb-8 text-xl font-bold">Thống kê sử dụng vé ăn hôm nay</h3>
+    <div class="grid grid-cols-3 gap-5 max-md:grid-cols-1">
+      @for (meal of meals; track meal.label) {
+        <div class="rounded-xl border px-5 py-6" [class]="meal.box">
+          <div class="mb-3 text-base" [class]="meal.color">{{ meal.label }}</div>
+          <div class="text-[30px] font-bold" [class]="meal.color">{{ meal.value }}</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (message) {
+    <div class="fixed bottom-6 right-6 z-[300] rounded-xl bg-[#020214] px-5 py-3 text-sm font-bold text-white shadow-xl">{{ message }}</div>
+  }
 </div>

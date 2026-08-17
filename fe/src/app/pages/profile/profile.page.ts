@@ -1,57 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component } from '@angular/core';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
-import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
-import { FilterBarComponent, FilterOption } from '../../components/filter-bar/filter-bar.component';
 import { LucideIconComponent } from '../../components/lucide-icon/lucide-icon.component';
-import { ProfileService } from '../../services/profile.service';
-import { ProfileStats, Profile238, ProfileFilter } from '../../models/profile.model';
+
+type ProfileStatus = 'pending' | 'approved' | 'rejected';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   standalone: true,
-  imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, FilterBarComponent, LucideIconComponent],
+  imports: [PageHeaderComponent, LucideIconComponent],
 })
-export class ProfilePage implements OnInit {
-  stats!: ProfileStats;
-  profiles: Profile238[] = [];
-  activeFilter: ProfileFilter = 'all';
+export class ProfilePage {
+  activeFilter = 'all';
+  message = '';
 
-  filterOptions: FilterOption[] = [
-    { label: 'Tất cả', value: 'all' },
-    { label: 'Chờ duyệt', value: 'cho-duyet' },
-    { label: 'Đã duyệt', value: 'da-duyet' },
-    { label: 'Từ chối', value: 'tu-choi' },
+  stats = [
+    { label: 'Chờ duyệt', value: '2', icon: 'clock', color: '#B45309', bg: '#FEFCE8', border: '#FDE047' },
+    { label: 'Đã duyệt', value: '2', icon: 'circle-check', color: '#059669', bg: '#F0FDF4', border: '#BBF7D0' },
+    { label: 'Từ chối', value: '1', icon: 'circle-x', color: '#DC2626', bg: '#FEF2F2', border: '#FECACA' },
+    { label: 'Tổng hồ sơ', value: '5', icon: 'file-text', color: '#2563EB', bg: '#EFF6FF', border: '#BFDBFE' },
   ];
 
-  constructor(private profileService: ProfileService) {}
+  filters = [
+    { key: 'all', label: 'Tất cả (5)' },
+    { key: 'pending', label: 'Chờ duyệt (2)' },
+    { key: 'approved', label: 'Đã duyệt (2)' },
+    { key: 'rejected', label: 'Từ chối (1)' },
+  ];
 
-  ngOnInit() {
-    this.profileService.getStats().subscribe(s => this.stats = s);
-    this.loadProfiles();
+  profiles = [
+    { code: 'SV001', name: 'Nguyễn Văn A', room: 'A301', type: 'Miễn giảm', date: '20/03/2026', docs: '3 file', status: 'pending' as ProfileStatus },
+    { code: 'SV002', name: 'Trần Thị B', room: 'B205', type: 'Xác nhận', date: '19/03/2026', docs: '2 file', status: 'pending' as ProfileStatus },
+    { code: 'SV003', name: 'Lê Văn C', room: 'C108', type: 'Miễn giảm', date: '18/03/2026', docs: '4 file', status: 'approved' as ProfileStatus },
+    { code: 'SV004', name: 'Phạm Thị D', room: 'A201', type: 'Xác nhận', date: '17/03/2026', docs: '2 file', status: 'approved' as ProfileStatus },
+    { code: 'SV005', name: 'Hoàng Văn E', room: 'B108', type: 'Miễn giảm', date: '16/03/2026', docs: '3 file', status: 'rejected' as ProfileStatus },
+  ];
+
+  get filteredProfiles() {
+    return this.activeFilter === 'all' ? this.profiles : this.profiles.filter(item => item.status === this.activeFilter);
   }
 
-  onFilterChange(value: string) {
-    this.activeFilter = value as ProfileFilter;
-    this.loadProfiles();
+  statusLabel(status: ProfileStatus) {
+    return { pending: 'Chờ duyệt', approved: 'Đã duyệt', rejected: 'Từ chối' }[status];
   }
 
-  private loadProfiles() {
-    this.profileService.getProfiles(this.activeFilter).subscribe(p => this.profiles = p);
+  statusClass(status: ProfileStatus) {
+    return { pending: 'bg-gray-100 text-slate-900', approved: 'bg-[#020214] text-white', rejected: 'bg-rose-600 text-white' }[status];
   }
 
-  getStatusLabel(s: string): string {
-    const map: Record<string, string> = { 'cho-duyet': 'Chờ duyệt', 'da-duyet': 'Đã duyệt', 'tu-choi': 'Từ chối' };
-    return map[s] || s;
+  typeClass(type: string) {
+    return type === 'Miễn giảm' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
   }
 
-  getStatusBadge(s: string): string {
-    const map: Record<string, string> = { 'cho-duyet': 'badge-pending', 'da-duyet': 'badge-success', 'tu-choi': 'badge-danger' };
-    return map[s] || '';
+  show(text: string) {
+    this.message = text;
+    window.setTimeout(() => this.message = '', 1800);
   }
-
-  onApprove(p: Profile238) { console.log('Duyệt', p); }
-  onReject(p: Profile238) { console.log('Từ chối', p); }
-  onView(p: Profile238) { console.log('Xem', p); }
 }

@@ -9,7 +9,7 @@ export class StatusTagComponent {
   type = input.required<string>();
 
   get badgeClass(): string {
-    const base = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap';
+    const base = 'inline-flex items-center px-3 py-1 rounded-md text-[14px] font-bold whitespace-nowrap';
     switch (this.type()) {
       case 'sinh-vien': return `${base} bg-[#E0F2FE] text-[#0284C7]`;
       case 'khach': return `${base} bg-[#F3E8FF] text-[#7C3AED]`;

@@ -10,6 +10,7 @@ import {
   informationCircleOutline, informationCircleSharp,
   settingsOutline, settingsSharp
 } from 'ionicons/icons';
+import { AuthService } from '../../services/auth.service';
 
 interface Notification {
   id: number;
@@ -24,7 +25,19 @@ interface Notification {
   imports: [IonIcon],
 })
 export class TopbarComponent {
-  today = new Date();
+  constructor(public auth: AuthService) {
+    addIcons({
+      notificationsOutline, notificationsSharp,
+      personCircleOutline, personCircleSharp,
+      chevronDownOutline, chevronDownSharp,
+      calendarOutline, calendarSharp,
+      logOutOutline, logOutSharp,
+      informationCircleOutline, informationCircleSharp,
+      settingsOutline, settingsSharp
+    });
+  }
+
+  today = new Date(2026, 7, 15);
   formattedDate = this.today.toLocaleDateString('vi-VN', {
     weekday: 'long',
     year: 'numeric',
@@ -56,15 +69,7 @@ export class TopbarComponent {
     this.showUserDropdown.set(false);
   }
 
-  constructor() {
-    addIcons({
-      notificationsOutline, notificationsSharp,
-      personCircleOutline, personCircleSharp,
-      chevronDownOutline, chevronDownSharp,
-      calendarOutline, calendarSharp,
-      logOutOutline, logOutSharp,
-      informationCircleOutline, informationCircleSharp,
-      settingsOutline, settingsSharp
-    });
+  logout() {
+    this.auth.logout();
   }
 }

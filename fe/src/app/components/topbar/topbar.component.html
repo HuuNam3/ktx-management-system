@@ -1,19 +1,19 @@
-<div class="h-[72px] bg-card-bg border-b border-border flex items-center justify-between px-8 fixed top-0 right-0 z-[90]" [style.left]="'var(--sidebar-width)'" [style.transition]="'left 0.3s ease'" (click)="closeDropdowns()">
+<div class="h-[78px] bg-card-bg border-b border-border flex items-center justify-between px-[30px] fixed top-0 right-0 z-[90]" [style.left]="'var(--sidebar-width)'" [style.transition]="'left 0.3s ease'" (click)="closeDropdowns()">
   <div class="flex items-center gap-4" (click)="$event.stopPropagation()">
-    <div class="flex items-center gap-2 bg-green-50 border border-green-200 px-4 py-2 rounded-lg text-sm font-medium text-green-700">
-      <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
-      <span>Ca sáng 7:00-15:00</span>
+    <div class="flex items-center gap-3 bg-green-50 border border-green-200 px-4 py-2 rounded-xl text-[16px] font-bold text-green-700 min-w-[212px] justify-center">
+      <span class="w-2.5 h-2.5 rounded-full bg-success animate-pulse"></span>
+      <span>Ca sáng (7:00 - 15:00)</span>
     </div>
-    <div class="flex items-center gap-2 text-text-secondary text-[15px]">
+    <div class="flex items-center gap-2 text-text-secondary text-[16px] ml-1">
       <span>{{ formattedDate }}</span>
     </div>
   </div>
 
   <div class="flex items-center gap-3 relative" (click)="$event.stopPropagation()">
     <div class="relative">
-      <button class="relative bg-transparent border-none cursor-pointer w-7 h-7 rounded-lg flex items-center justify-center text-text-primary hover:bg-bg" (click)="toggleNotif()">
-        <ion-icon name="notifications-outline" class="text-lg"></ion-icon>
-        <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-danger rounded-full border-2 border-card-bg"></span>
+      <button class="relative bg-transparent border-none cursor-pointer w-10 h-10 rounded-xl flex items-center justify-center text-text-primary hover:bg-bg" (click)="toggleNotif()">
+        <ion-icon name="notifications-outline" class="text-[22px]"></ion-icon>
+        <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#FF2D42] rounded-full"></span>
       </button>
       @if (showNotifDropdown()) {
         <div class="absolute top-[calc(100%+8px)] right-0 bg-card-bg border border-border rounded-[14px] shadow-[0_12px_40px_rgba(0,0,0,0.1)] z-[200] min-w-[260px] overflow-hidden">
@@ -29,9 +29,9 @@
     </div>
 
     <div class="relative">
-      <button class="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-[10px] bg-transparent border-none hover:bg-bg [font-family:inherit] [font-size:inherit]" (click)="toggleUser()">
-        <ion-icon name="person-circle-outline" class="text-4xl text-primary"></ion-icon>
-        <span class="text-[15px] font-medium text-text-primary">Admin</span>
+      <button class="flex items-center gap-2.5 cursor-pointer px-3 py-1.5 rounded-[10px] bg-transparent border-none hover:bg-bg [font-family:inherit] [font-size:inherit]" (click)="toggleUser()">
+        <ion-icon name="person-circle-outline" class="text-[38px] text-primary"></ion-icon>
+        <span class="text-[16px] font-bold text-text-primary">{{ auth.currentUser()?.name || 'Nguyễn Văn A' }}</span>
       </button>
       @if (showUserDropdown()) {
         <div class="absolute top-[calc(100%+8px)] right-0 bg-card-bg border border-border rounded-[14px] shadow-[0_12px_40px_rgba(0,0,0,0.1)] z-[200] min-w-[260px] overflow-hidden">
@@ -44,10 +44,10 @@
             <span>Nhiệm vụ của tôi</span>
           </div>
           <div class="h-px bg-border my-1"></div>
-          <div class="flex items-center gap-3 px-5 py-[14px] cursor-pointer text-sm transition-[background] duration-150 hover:bg-bg text-danger!">
+          <button type="button" class="w-full border-none bg-transparent flex items-center gap-3 px-5 py-[14px] cursor-pointer text-sm transition-[background] duration-150 hover:bg-bg text-danger!" (click)="logout()">
             <ion-icon name="log-out-outline" class="text-xl flex-shrink-0 text-danger!"></ion-icon>
             <span>Đăng xuất</span>
-          </div>
+          </button>
         </div>
       }
     </div>

@@ -1,11 +1,24 @@
 <ion-app>
-  <div class="flex min-h-screen">
-    <app-sidebar></app-sidebar>
-    <div class="flex-1 flex flex-col min-h-screen" [style.marginLeft]="'var(--sidebar-width)'" [style.transition]="'margin-left 0.3s ease'">
-      <app-topbar></app-topbar>
-      <div class="flex-1 overflow-y-auto" [style.marginTop]="'var(--topbar-height)'" [style.background]="'var(--bg)'" [style.height]="'calc(100vh - var(--topbar-height))'">
-        <router-outlet></router-outlet>
+  @if (auth.isLoggedIn()) {
+    <div class="h-screen overflow-hidden">
+      <app-sidebar></app-sidebar>
+      <div
+        class="fixed bottom-0 right-0 top-0 min-w-0 overflow-hidden"
+        [style.left]="'var(--sidebar-width)'"
+        [style.width]="'calc(100% - var(--sidebar-width))'"
+        [style.transition]="'left 0.3s ease, width 0.3s ease'"
+      >
+        <app-topbar></app-topbar>
+        <main
+          class="absolute bottom-0 left-0 right-0 min-w-0 overflow-x-hidden overflow-y-auto"
+          [style.top]="'var(--topbar-height)'"
+          [style.background]="'var(--bg)'"
+        >
+          <router-outlet></router-outlet>
+        </main>
       </div>
     </div>
-  </div>
+  } @else {
+    <router-outlet></router-outlet>
+  }
 </ion-app>

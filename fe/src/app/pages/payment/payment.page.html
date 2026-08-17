@@ -1,80 +1,92 @@
-<div class="p-8 max-w-[1400px]">
-  <app-page-header
-    title="Quản lý thanh toán"
-    description="Theo dõi công nợ và thanh toán"
-    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
-  />
+<div class="page">
+  <app-page-header title="Quản lý Thanh toán" description="Theo dõi công nợ và thanh toán" [showCheckin]="false" [showCheckout]="false" [showQR]="false" />
 
-  @if (stats) {
-    <div class="mb-6 grid gap-4 grid-cols-4">
-      <app-statistic-card label="Tổng công nợ" [value]="formatCurrency(stats.totalDebt)" lucideIcon="dollar-sign" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
-      <app-statistic-card label="Đã thu" [value]="formatCurrency(stats.totalPaid)" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Giao dịch" [value]="stats.totalTransactions | number" lucideIcon="bar-chart-3" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Chờ thu" [value]="stats.pendingCount | number" lucideIcon="hourglass" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
-    </div>
-  }
-
-  <div class="mb-6 flex gap-1 bg-bg rounded-[12px] p-[4px] border border-border w-fit">
+  <div class="mb-3 grid grid-cols-4 rounded-2xl bg-gray-200 p-1 text-base font-bold">
     @for (tab of tabs; track tab.key) {
       <button
-        class="px-5 py-[10px] rounded-[10px] border-none bg-transparent text-text-secondary text-sm font-medium cursor-pointer transition-all duration-200 hover:text-text-primary"
-        [class.bg-card-bg]="activeTab === tab.key"
-        [class.text-text-primary]="activeTab === tab.key"
-        [class.font-semibold]="activeTab === tab.key"
-        [class.shadow-sm]="activeTab === tab.key"
-        (click)="setTab(tab.key)"
+        class="h-10 rounded-xl border-0 bg-transparent font-bold"
+        [class.bg-white]="activeTab === tab.key"
+        (click)="activeTab = tab.key"
       >
         {{ tab.label }}
+        @if (tab.badge) {
+          <span class="ml-2 rounded-full bg-rose-600 px-3 py-1 text-sm text-white">{{ tab.badge }}</span>
+        }
       </button>
     }
   </div>
 
-  <div class="mb-6 flex items-center justify-between gap-4 flex-wrap">
-    <div class="flex-1 min-w-[250px] max-w-[400px]">
-      <app-search-input placeholder="Tìm khách hàng, phòng..." (valueChange)="onSearch($event)" />
+  <div class="rounded-2xl border border-gray-200 bg-white p-[30px]">
+    <div class="mb-9 flex items-center justify-between">
+      <h3 class="m-0 text-xl font-bold">Danh sách công nợ</h3>
+      <button class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 font-bold" (click)="exportExcel()">
+        <app-lucide-icon name="download" [size]="18" /> Xuất Excel
+      </button>
     </div>
-    <div class="flex items-center gap-3 flex-wrap">
-      <div class="flex gap-2 flex-wrap">
-        @for (opt of statusOptions; track opt.value) {
-          <button
-            class="px-5 py-2 rounded-full border border-border bg-card-bg text-text-secondary text-sm font-medium cursor-pointer transition-all duration-200 hover:border-primary hover:text-primary"
-            [class.border-primary]="statusFilter === opt.value"
-            [class.text-primary]="statusFilter === opt.value"
-            (click)="onStatusFilter(opt.value)"
-          >
-            {{ opt.label }}
-          </button>
-        }
-      </div>
-      <button class="btn px-5 py-[10px] rounded-[10px] border border-border bg-card-bg text-sm font-semibold cursor-pointer transition-all duration-200 whitespace-nowrap hover:border-primary hover:text-primary"><app-lucide-icon name="download" [size]="18" /> Xuất Excel</button>
+
+    <div class="mb-5 grid grid-cols-[1fr_230px] gap-4">
+      <label class="flex h-11 items-center gap-3 rounded-xl bg-gray-100 px-4 text-slate-500">
+        <app-lucide-icon name="search" [size]="20" color="#94A3B8" />
+        <input class="h-full flex-1 border-0 bg-transparent outline-none" placeholder="Tìm theo tên, phòng, CCCD, SĐT..." [(ngModel)]="searchTerm" />
+      </label>
+      <label class="flex h-11 items-center gap-3 rounded-xl bg-gray-100 px-4">
+        <app-lucide-icon name="filter" [size]="20" color="#64748B" />
+        <select class="h-full flex-1 border-0 bg-transparent font-bold outline-none" [(ngModel)]="statusFilter">
+          <option value="all">Tất cả trạng thái</option>
+          <option value="overdue">Quá hạn</option>
+          <option value="unpaid">Chưa đóng</option>
+          <option value="partial">Đã đóng 1 phần</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl border border-gray-200">
+      <table class="w-full min-w-[1120px] border-collapse text-left text-base">
+        <thead>
+          <tr class="border-b border-gray-200">
+            <th class="p-3 font-bold">Khách hàng</th>
+            <th class="p-3 font-bold">Phòng</th>
+            <th class="p-3 font-bold">Loại phí</th>
+            <th class="p-3 font-bold text-right">Số tiền</th>
+            <th class="p-3 font-bold">Hạn đóng</th>
+            <th class="p-3 font-bold">Trạng thái</th>
+            <th class="p-3 font-bold text-right">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of filteredRows; track row.customer) {
+            <tr class="border-b border-gray-200 last:border-0" [class.bg-rose-50]="row.status === 'overdue'">
+              <td class="p-3">
+                <div class="font-bold">{{ row.customer }}</div>
+                <div class="text-slate-500">{{ row.phone }}</div>
+              </td>
+              <td class="p-3"><span class="rounded-lg border border-gray-200 px-3 py-1 text-sm font-bold">{{ row.room }}</span></td>
+              <td class="p-3">
+                <div class="flex flex-wrap gap-2">
+                  @for (fee of row.fees; track fee) {
+                    <span class="rounded-lg bg-slate-100 px-3 py-1 text-sm font-bold">{{ fee }}</span>
+                  }
+                </div>
+              </td>
+              <td class="p-3 text-right font-bold text-red-600">
+                {{ row.amount }}
+                @if (row.paid) { <div class="text-sm font-normal text-slate-500">{{ row.paid }}</div> }
+              </td>
+              <td class="p-3">{{ row.due }}</td>
+              <td class="p-3"><span class="rounded-lg px-3 py-1 text-sm font-bold" [class]="statusClass(row.status)">{{ statusLabel(row.status) }}</span></td>
+              <td class="p-3 text-right">
+                <button class="inline-flex items-center gap-2 rounded-xl border-0 bg-[#020214] px-4 py-3 font-bold text-white" (click)="pay(row)">
+                  <app-lucide-icon name="eye" [size]="17" color="white" /> Thanh toán
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <div class="mb-6 bg-card-bg rounded-[20px] border border-border overflow-x-auto">
-    <div class="grid items-center px-6 py-[14px] gap-3 min-w-[700px] text-xs font-semibold text-text-secondary uppercase tracking-wider border-b border-border">
-      <span>Khách hàng</span>
-      <span>Phòng</span>
-      <span>Loại phí</span>
-      <span>Số tiền</span>
-      <span>Hạn đóng</span>
-      <span>Trạng thái</span>
-      <span>Thao tác</span>
-    </div>
-    <div class="table-bdy">
-      @for (r of filtered; track r.id) {
-        <div class="grid items-center px-6 py-[14px] gap-3 min-w-[700px] text-sm text-text-primary border-t border-[#F3F4F6] hover:bg-[#FAFBFC]">
-          <span class="font-semibold">{{ r.customer }}</span>
-          <span>{{ r.room }}</span>
-          <span>{{ r.feeType }}</span>
-          <span class="cell-amount">{{ formatCurrency(r.amount) }}</span>
-          <span>{{ r.dueDate }}</span>
-          <span><span class="badge" [class]="getStatusBadge(r.status)">{{ getStatusLabel(r.status) }}</span></span>
-          <span><button class="size-9 rounded-[10px] border-none bg-transparent cursor-pointer inline-flex items-center justify-center text-lg transition-colors duration-200 hover:bg-bg" title="Thanh toán"><app-lucide-icon name="credit-card" [size]="18" /></button></span>
-        </div>
-      }
-      @if (filtered.length === 0) {
-        <div class="text-center py-12 px-6 text-text-secondary text-sm font-medium">Không có dữ liệu</div>
-      }
-    </div>
-  </div>
+  @if (message) {
+    <div class="fixed bottom-6 right-6 z-[300] rounded-xl bg-[#020214] px-5 py-3 text-sm font-bold text-white shadow-xl">{{ message }}</div>
+  }
 </div>

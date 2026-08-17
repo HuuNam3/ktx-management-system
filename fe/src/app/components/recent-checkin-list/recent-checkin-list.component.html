@@ -1,9 +1,9 @@
-<div class="bg-card-bg rounded-lg p-6 border border-border">
-  <div class="flex items-center justify-between mb-2">
-    <h3 class="text-xl font-semibold text-text-primary m-0">Check-in gần đây</h3>
-    <button class="bg-transparent border-0 text-primary text-sm font-medium cursor-pointer px-2 py-1 rounded-md hover:bg-primary-light">Xem tất cả →</button>
+<div class="demo-card p-7">
+  <div class="mb-7">
+    <h3 class="text-[20px] font-black text-text-primary m-0">Check-in gần đây</h3>
+    <p class="text-[18px] text-text-secondary mt-2 m-0">Danh sách khách mới check-in hôm nay</p>
   </div>
-  <div class="flex flex-col">
+  <div class="flex flex-col gap-4">
     @for (item of items(); track item.cccd) {
       <app-recent-checkin-item [item]="item" />
     }

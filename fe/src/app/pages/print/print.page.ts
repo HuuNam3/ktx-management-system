@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { LucideIconComponent } from '../../components/lucide-icon/lucide-icon.component';
-import { PrintDocument } from '../../models/print.model';
 
 @Component({
   selector: 'app-print',
@@ -10,16 +9,19 @@ import { PrintDocument } from '../../models/print.model';
   imports: [PageHeaderComponent, LucideIconComponent],
 })
 export class PrintPage {
-  documents: PrintDocument[] = [
-    { id: '1', title: 'Giấy xác nhận sinh viên', description: 'Xác nhận đang ở KTX', icon: 'graduation-cap', color: '#2563EB', bgColor: '#EFF6FF' },
-    { id: '2', title: 'Giấy xác nhận tạm trú', description: 'Xác nhận tạm trú KTX', icon: 'home', color: '#16A34A', bgColor: '#F0FDF4' },
-    { id: '3', title: 'Giấy miễn giảm 238', description: 'Mẫu đơn miễn giảm', icon: 'file-text', color: '#7C3AED', bgColor: '#F3E8FF' },
-    { id: '4', title: 'Hóa đơn tiền phòng', description: 'Hóa đơn hàng tháng', icon: 'dollar-sign', color: '#F59E0B', bgColor: '#FFFBEB' },
-    { id: '5', title: 'Biên lai thu tiền', description: 'Biên lai thanh toán', icon: 'receipt', color: '#EA580C', bgColor: '#FFF7ED' },
-    { id: '6', title: 'Hợp đồng lưu trú', description: 'Hợp đồng ở KTX', icon: 'file-edit', color: '#DC2626', bgColor: '#FEF2F2' },
+  message = '';
+
+  documents = [
+    { title: 'Giấy xác nhận sinh viên KTX', icon: 'file-text', color: '#2563EB', bg: '#DBEAFE' },
+    { title: 'Giấy xác nhận tạm trú', icon: 'file-text', color: '#059669', bg: '#DCFCE7' },
+    { title: 'Giấy xác nhận miễn giảm 238', icon: 'file-text', color: '#9333EA', bg: '#F3E8FF' },
+    { title: 'Hóa đơn tiền phòng', icon: 'file-text', color: '#D97706', bg: '#FEF3C7' },
+    { title: 'Biên lai thu tiền', icon: 'file-text', color: '#EA580C', bg: '#FFEDD5' },
+    { title: 'Hợp đồng lưu trú', icon: 'file-text', color: '#DC2626', bg: '#FEE2E2' },
   ];
 
-  onClick(doc: PrintDocument) {
-    console.log('Open form:', doc.title);
+  open(title: string) {
+    this.message = `Đã mở mẫu ${title}`;
+    window.setTimeout(() => this.message = '', 1800);
   }
 }

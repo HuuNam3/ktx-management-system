@@ -1,44 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
-import { StatisticCardComponent } from '../../components/statistic-card/statistic-card.component';
 import { LucideIconComponent } from '../../components/lucide-icon/lucide-icon.component';
-import { ChecklistService } from '../../services/checklist.service';
-import { ChecklistStats, ChecklistItem } from '../../models/checklist.model';
 
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.page.html',
   standalone: true,
-  imports: [DecimalPipe, PageHeaderComponent, StatisticCardComponent, LucideIconComponent],
+  imports: [FormsModule, PageHeaderComponent, LucideIconComponent],
 })
-export class ChecklistPage implements OnInit {
-  stats!: ChecklistStats;
-  items: ChecklistItem[] = [];
+export class ChecklistPage {
+  note = '';
+  message = '';
 
-  constructor(private checklistService: ChecklistService) {}
+  items = [
+    { task: 'Kiểm tra an ninh toàn bộ KTX', time: '07:00', done: true },
+    { task: 'Cập nhật check-in/out trong đêm', time: '07:15', done: true },
+    { task: 'Kiểm tra điện nước các phòng', time: '08:00', done: false },
+    { task: 'Xử lý phản hồi từ sinh viên', time: '09:00', done: false },
+    { task: 'Báo cáo tình hình cho quản lý', time: '14:30', done: false },
+  ];
 
-  ngOnInit() {
-    this.checklistService.getStats().subscribe(s => this.stats = s);
-    this.checklistService.getItems().subscribe(i => this.items = i);
+  get completed() {
+    return this.items.filter(item => item.done).length;
   }
 
-  toggle(item: ChecklistItem) {
-    item.status = item.status === 'done' ? 'pending' : 'done';
-    this.recalcStats();
+  toggle(item: { done: boolean }) {
+    item.done = !item.done;
   }
 
-  private recalcStats() {
-    const total = this.items.length;
-    const done = this.items.filter(i => i.status === 'done').length;
-    this.stats = { ...this.stats, completed: done, remaining: total - done };
-  }
-
-  getStatusLabel(s: string): string {
-    return s === 'done' ? 'Hoàn thành' : 'Chưa hoàn thành';
-  }
-
-  getStatusBadge(s: string): string {
-    return s === 'done' ? 'badge-success' : 'badge-pending';
+  saveNote() {
+    this.message = 'Đã lưu ghi chú ca trực';
+    window.setTimeout(() => this.message = '', 1800);
   }
 }

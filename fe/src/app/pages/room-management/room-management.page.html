@@ -1,33 +1,51 @@
 <div class="page">
-  <app-page-header
-    title="Quản lý phòng"
-    description="Quản lý thông tin phòng ở"
-    [showCheckin]="false"
-    [showCheckout]="false"
-    [showQR]="false"
-  />
+  <div class="mb-9">
+    <h1 class="demo-title">Quản lý phòng</h1>
+    <p class="demo-subtitle">Sơ đồ phòng và trạng thái giường</p>
+  </div>
 
   @if (stats) {
-    <div class="row stats-row grid-cols-5 max-lg:grid-cols-3 max-sm:grid-cols-2">
-      <app-statistic-card label="Tổng phòng" [value]="stats.total | number" lucideIcon="building" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Còn trống" [value]="stats.empty | number" lucideIcon="check-circle" subtitle="" color="#16A34A" bgColor="#F0FDF4" />
-      <app-statistic-card label="Còn chỗ" [value]="stats.partial | number" lucideIcon="minus-circle" subtitle="" color="#2563EB" bgColor="#EFF6FF" />
-      <app-statistic-card label="Đầy" [value]="stats.full | number" lucideIcon="x-circle" subtitle="" color="#DC2626" bgColor="#FEF2F2" />
-      <app-statistic-card label="Bảo trì" [value]="stats.maintenance | number" lucideIcon="settings" subtitle="" color="#F59E0B" bgColor="#FFFBEB" />
+    <div class="grid grid-cols-5 gap-5 mb-8">
+      <div class="demo-card h-[132px] flex flex-col items-center justify-center">
+        <div class="text-[18px] text-[#344054] mb-3">Tổng phòng</div>
+        <div class="text-[31px] font-black text-black">{{ stats.total }}</div>
+      </div>
+      <div class="h-[132px] rounded-[16px] border border-[#86EFAC] bg-[#F0FDF4] flex flex-col items-center justify-center">
+        <div class="text-[18px] text-[#008B3A] mb-3">Còn trống</div>
+        <div class="text-[31px] font-black text-[#008B3A]">{{ stats.empty }}</div>
+      </div>
+      <div class="h-[132px] rounded-[16px] border border-[#93C5FD] bg-[#EFF6FF] flex flex-col items-center justify-center">
+        <div class="text-[18px] text-primary mb-3">Còn chỗ</div>
+        <div class="text-[31px] font-black text-primary">{{ stats.partial }}</div>
+      </div>
+      <div class="h-[132px] rounded-[16px] border border-[#FCA5A5] bg-[#FEF2F2] flex flex-col items-center justify-center">
+        <div class="text-[18px] text-[#DC0000] mb-3">Đầy</div>
+        <div class="text-[31px] font-black text-[#DC0000]">{{ stats.full }}</div>
+      </div>
+      <div class="h-[132px] rounded-[16px] border border-[#FDE047] bg-[#FEFCE8] flex flex-col items-center justify-center">
+        <div class="text-[18px] text-[#B45309] mb-3">Bảo trì</div>
+        <div class="text-[31px] font-black text-[#B45309]">{{ stats.maintenance }}</div>
+      </div>
     </div>
   }
 
-  <div class="row flex">
+  <div class="mb-11 flex items-center justify-between gap-4">
     <app-filter-bar
       [options]="filterOptions"
       [selected]="selectedBlock"
       (selectedChange)="onFilterChange($event)"
     />
+    <div class="w-[360px] max-lg:hidden">
+      <app-search-input placeholder="Tìm phòng..." (valueChange)="onSearch($event)" />
+    </div>
   </div>
 
-  <div class="row grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-5 max-sm:grid-cols-2">
-    @for (room of rooms; track room.id) {
+  <div class="grid grid-cols-[repeat(6,minmax(160px,1fr))] gap-6 max-[1600px]:grid-cols-4 max-lg:grid-cols-3 max-sm:grid-cols-1">
+    @for (room of filteredRooms; track room.id) {
       <app-room-card [room]="room" />
+    }
+    @if (filteredRooms.length === 0) {
+      <div class="empty-state col-span-full">Không tìm thấy phòng phù hợp</div>
     }
   </div>
 </div>

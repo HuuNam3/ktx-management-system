@@ -12,6 +12,8 @@ using DormitoryManagement.Api.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -31,7 +33,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:8100", "http://localhost:4200")
+        policy.WithOrigins("http://localhost:8100", "http://localhost:4200", "http://127.0.0.1:4200")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -47,7 +49,15 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await DatabaseSeeder.SeedAsync(db, scope.ServiceProvider.GetRequiredService<PasswordHasher>(), scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("DatabaseSeeder"));
+    var seedLogger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("DatabaseSeeder");
+    try
+    {
+        await DatabaseSeeder.SeedAsync(db, scope.ServiceProvider.GetRequiredService<PasswordHasher>(), seedLogger);
+    }
+    catch (Exception ex)
+    {
+        seedLogger.LogWarning(ex, "Bỏ qua seed database để API vẫn chạy. Kiểm tra PostgreSQL nếu cần dùng các endpoint dữ liệu thật.");
+    }
 }
 
 if (app.Environment.IsDevelopment())

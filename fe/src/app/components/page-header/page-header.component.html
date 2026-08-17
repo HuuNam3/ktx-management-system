@@ -1,25 +1,25 @@
-<div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+<div class="flex items-center justify-between mb-7 flex-wrap gap-4">
   <div>
-    <h1 class="text-[28px] font-bold text-text-primary m-0">{{ title() }}</h1>
+    <h1 class="text-[36px] font-black text-text-primary m-0 leading-tight">{{ title() }}</h1>
     @if (description()) {
-      <p class="text-[15px] text-text-secondary mt-1">{{ description() }}</p>
+      <p class="text-[18px] text-text-secondary mt-2">{{ description() }}</p>
     }
   </div>
   <div class="flex gap-3 flex-wrap">
     @if (showCheckin()) {
-      <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-semibold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-success text-white hover:bg-[#15803D]" (click)="checkinClick.emit()">
+      <button class="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-[16px] font-bold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-success text-white hover:bg-[#15803D]" (click)="checkinClick.emit()">
         <app-lucide-icon name="plus" [size]="18" color="white" />
         Check-in
       </button>
     }
     @if (showCheckout()) {
-      <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-semibold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-danger text-white hover:bg-[#B91C1C]" (click)="checkoutClick.emit()">
+      <button class="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-[16px] font-bold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-danger text-white hover:bg-[#B91C1C]" (click)="checkoutClick.emit()">
         <app-lucide-icon name="arrow-right" [size]="18" color="white" />
         Check-out
       </button>
     }
     @if (showQR()) {
-      <button class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[15px] font-semibold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-primary text-white hover:bg-[#1D4ED8]" (click)="qrClick.emit()">
+      <button class="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-[16px] font-bold border-none cursor-pointer transition-all duration-200 active:scale-95 bg-primary text-white hover:bg-[#1D4ED8]" (click)="qrClick.emit()">
         <app-lucide-icon name="qr-code" [size]="18" color="white" />
         Quét QR
       </button>

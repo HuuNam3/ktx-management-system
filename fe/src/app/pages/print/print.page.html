@@ -1,22 +1,16 @@
-<div class="p-8 max-w-[1400px]">
-  <app-page-header
-    title="In giấy tờ & Tài liệu"
-    description="Tạo và in giấy xác nhận"
-    [showCheckin]="false" [showCheckout]="false" [showQR]="false"
-  />
+<div class="page">
+  <app-page-header title="In giấy tờ & Tài liệu" description="Tạo và in các loại giấy tờ xác nhận" [showCheckin]="false" [showCheckout]="false" [showQR]="false" />
 
-  <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-5">
-    @for (doc of documents; track doc.id) {
-      <div class="bg-card-bg rounded-[var(--radius)] p-6 border border-border flex items-center gap-4 cursor-pointer transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:border-[var(--card-color)] group" (click)="onClick(doc)" [style.--card-color]="doc.color" [style.--card-bg]="doc.bgColor">
-        <div class="size-14 rounded-[16px] flex items-center justify-center shrink-0" [style.background]="doc.bgColor">
-          <app-lucide-icon [name]="doc.icon" [size]="26" [color]="doc.color" />
-        </div>
-        <div class="flex-1">
-          <h3 class="text-base font-semibold text-text-primary m-0 mb-1">{{ doc.title }}</h3>
-          <p class="text-[13px] text-text-secondary m-0">{{ doc.description }}</p>
-        </div>
-        <div class="text-xl text-text-secondary shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[var(--card-color)]">→</div>
-      </div>
+  <div class="grid grid-cols-3 gap-7 max-xl:grid-cols-2 max-md:grid-cols-1">
+    @for (doc of documents; track doc.title) {
+      <button class="flex min-h-[185px] flex-col items-center justify-center gap-6 rounded-2xl border border-gray-200 bg-white p-8 text-center hover:border-blue-300 hover:shadow-lg" (click)="open(doc.title)">
+        <span class="flex size-[76px] items-center justify-center rounded-xl" [style.background]="doc.bg">
+          <app-lucide-icon [name]="doc.icon" [size]="34" [color]="doc.color" />
+        </span>
+        <span class="text-xl font-bold">{{ doc.title }}</span>
+      </button>
     }
   </div>
+
+  @if (message) { <div class="fixed bottom-6 right-6 z-[300] rounded-xl bg-[#020214] px-5 py-3 text-sm font-bold text-white shadow-xl">{{ message }}</div> }
 </div>
