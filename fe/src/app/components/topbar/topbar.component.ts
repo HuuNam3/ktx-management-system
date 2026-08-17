@@ -37,7 +37,7 @@ export class TopbarComponent {
     });
   }
 
-  today = new Date(2026, 7, 15);
+  today = new Date();
   formattedDate = this.today.toLocaleDateString('vi-VN', {
     weekday: 'long',
     year: 'numeric',
